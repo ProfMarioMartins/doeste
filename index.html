@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Doeste – Repositório de textos escritos</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Choices.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+</head>
+
+<footer style="text-align:center; font-size: 0.8em; margin-top: 40px; color: gray;">
+  Versão atual do script.js: <span id="versao-script">carregando...</span>
+</footer>
+
+<body>
+  <h1>Doeste</h1>
+  <h2>Repositório de textos escritos</h2>
+
+  <p>
+    Buscar por:
+    <input type="text" id="busca" placeholder="Digite a forma, lema, etc." />
+    em
+    <select id="tipoBusca">
+      <option value="todos">Todos os campos</option>
+      <option value="forma">Forma</option>
+      <option value="lema">Lema</option>
+      <option value="pos">Classe gramatical</option>
+      <option value="feats">Traços morfológicos</option>
+    </select>
+  </p>
+
+  <p>
+    Classe gramatical:
+    <select id="posOpcional" multiple>
+      <option value="">(qualquer)</option>
+      <option value="ADJ">Adjetivo (ADJ)</option>
+      <option value="ADV">Advérbio (ADV)</option>
+      <option value="CCONJ">Conjunção coord. (CCONJ)</option>
+      <option value="SCONJ">Conjunção subord. (SCONJ)</option>
+      <option value="DET">Determinante (DET)</option>
+      <option value="INTJ">Interjeição (INTJ)</option>
+      <option value="NOUN">Nome comum (NOUN)</option>
+      <option value="PROPN">Nome próprio (PROPN)</option>
+      <option value="NUM">Numeral (NUM)</option>
+      <option value="PART">Partícula (PART)</option>
+      <option value="PUNCT">Pontuação (PUNCT)</option>
+      <option value="ADP">Preposição (ADP)</option>
+      <option value="PRON">Pronome (PRON)</option>
+      <option value="SYM">Símbolo (SYM)</option>
+      <option value="VERB">Verbo principal (VERB)</option>
+      <option value="AUX">Verbo auxiliar (AUX)</option>
+      <option value="X">Outro (X)</option>
+    </select>
+  </p>
+
+  <p>
+    Traço morfológico:
+    <select id="featsOpcional" multiple></select>
+  </p>
+
+  <p>
+    <button onclick="buscar()">Buscar</button>
+  </p>
+
+  <div id="resultados"></div>
+  <button onclick="exportarCSV()">Exportar resultados como CSV</button>
+
+  <script src="script.js"></script>
+
+  <!-- Choices.js Script -->
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script>
+    const posSelect = document.getElementById("posOpcional");
+    const posChoices = new Choices(posSelect, {
+      removeItemButton: true,
+      placeholderValue: "Selecione a(s) classe(s)...",
+      searchEnabled: false,
+      shouldSort: false
+    });
+
+    // ⏎ Atualiza o menu de feats quando POS muda
+    posSelect.addEventListener("change", () => {
+      if (typeof atualizarFeatsComBaseNosPOS === "function") {
+        atualizarFeatsComBaseNosPOS();
+      }
+    });
+  </script>
+</body>
+</html>
