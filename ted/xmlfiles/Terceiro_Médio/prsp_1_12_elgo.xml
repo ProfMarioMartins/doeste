@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TEI>
+  <teiHeader>
+    <revisionDesc>
+      <change when="2026-01-09" who="MM">XML file created</change>
+      <change when="2026-05-04T11:29:01.685869" who="DOESTE_UDPIPE_TED_PIPELINE">Automatic POS-tagging, lemmatization and dependency parsing via UDPipe REST service. Model: portuguese-bosque-ud-2.17. Annotation used nform when available; otherwise tok text. Original learner form preserved in tok text and form attribute. Contractions were not expanded in this processing stage.</change></revisionDesc>
+    <fileDesc>
+      <sourceDesc>
+        <bibl>
+          <idno type="internal">PRSP1</idno>
+          </bibl>
+        </sourceDesc>
+      </fileDesc>
+    <profileDesc>
+      <particDesc>
+        <listPerson>
+          <person>
+            <persName>PRSP</persName>
+            <age>17</age>
+            <affiliation>ELGO</affiliation>
+            <education>12</education>
+            <residence>Caraúbas</residence>
+            <langKnown>Brazilian Portuguese</langKnown>
+            </person>
+          </listPerson>
+        <person>
+          <sex>Female</sex>
+          </person>
+        </particDesc>
+      <langUsage>
+        <language ident="pt-BR"/>
+        </langUsage>
+      <textDesc>
+        <purpose>Narrar</purpose>
+        </textDesc>
+      <settingDesc>
+        <date>2017</date>
+        </settingDesc>
+      </profileDesc>
+    </teiHeader>
+  <text xml:space="preserve">
+    <pb facs="prsp_1_12_elgo.jpg" id="e-1"/>
+    <p id="p-1">Nas férias sempre é a mesma rotina, pessoas vivem, ou melhor, deixam de viver, e trabalham direto durante 11 meses apenas para quando chegar dezembro ir viajar, bem, comigo não diferente, afinal estudando e trabalhando durante o ano inteiro, eu e minha familia fazer o tradicional das férias, ir viajar.<br/>Escolhemos um destino inesperado e bem diferente, na qual quase ninguém vai, a praia. Após 2 dias hospedada no hotel eu resolvi sair para conhecer um pouco o local, nessa volta cidade, &lt;ilegível&gt; por esbarrar em uma menina, pedi desculpas e me apresentei, aproveitando a situação perguntei se ela poderia me mostrar a cidade, pois, estava com medo de me perder.<br/>Sendo assim, saímos e fomos juntas conhecer a cidade. Passeamos bastante, fomos ver o mar, pescamos junto aos pescadores da região, tomamos sorvete e por fim fomos para um lual a beira mar, porém, tive que vir embora pois já era tarde e precisava vir embora, desse modo, cada uma seguiu o seu caminho.</p>
+    </text>
+  </TEI>

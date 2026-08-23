@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<ttsettings>
+    
+  <!-- ========================= -->
+  <!-- Defaults (OBRIGATÓRIO para JS e CSS funcionarem) -->
+  <!-- ========================= -->
+  <defaults>
+    <title display="Corpus TEJ"/>
+	<base foldername="tej" javascript="/Scripts/" css="/common/css/"/>
+  </defaults>
+
+  <!-- ========================= -->
+  <!-- Interface language -->
+  <!-- ========================= -->
+  <languages prefixed="0" default="pt">
+    <language code="pt" locale="pt_BR.UTF-8" menu="PT"/>
+  </languages>
+
+  <!-- ========================= -->
+  <!-- Menu -->
+  <!-- ========================= -->
+  <menu>
+    <itemlist>
+      <item key="home" display="Início"/>
+      <item key="cqp" display="Pesquisa"/>
+      <item key="metodo" display="Metodologia"/>
+    </itemlist>
+  </menu>
+
+  <!-- ========================= -->
+  <!-- CQP Configuration -->
+  <!-- ========================= -->
+  <cqp corpus="tej"
+       searchfolder="xmlfiles"
+       tokxpath="//*[local-name()='tok']"
+       wordpath="text()"
+       cqpfolder="cqp">
+
+    <pattributes>
+      <item key="word" display="Forma"/>
+      <item key="lemma"/>
+      <item key="upos" display="Classe gramatical" type="select">
+  <options>
+    <item key="ADJ" display="Adjetivo"/>
+    <item key="ADP" display="Preposição"/>
+    <item key="ADV" display="Advérbio"/>
+    <item key="AUX" display="Verbo auxiliar"/>
+    <item key="CCONJ" display="Conjunção coordenativa"/>
+    <item key="DET" display="Determinante (artigo, etc.)"/>
+    <item key="INTJ" display="Interjeição"/>
+    <item key="NOUN" display="Substantivo comum"/>
+    <item key="NUM" display="Numeral"/>
+    <item key="PRON" display="Pronome"/>
+    <item key="PROPN" display="Nome próprio"/>
+    <item key="PUNCT" display="Pontuação"/>
+    <item key="SCONJ" display="Conjunção subordinativa"/>
+    <item key="SYM" display="Símbolo"/>
+    <item key="VERB" display="Verbo"/>
+    <item key="X" display="Outro (categoria indefinida)"/>
+  </options>
+</item>
+      <item key="feats"/>
+      <item key="deprel" display="Relação sintática" type="select">
+  <options>
+    <item key="acl" display="Modificador de nome (oração)"/>
+    <item key="acl:relcl" display="Oração relativa"/>
+    <item key="advcl" display="Adjunto adverbial oracional"/>
+    <item key="advmod" display="Modificador adverbial"/>
+    <item key="amod" display="Modificador adjetival"/>
+    <item key="appos" display="Aposto"/>
+    <item key="aux" display="Verbo auxiliar"/>
+    <item key="aux:pass" display="Auxiliar de voz passiva"/>
+    <item key="case" display="Marcador de caso (preposição)"/>
+    <item key="cc" display="Conjunção coordenativa"/>
+    <item key="ccomp" display="Complemento oracional"/>
+    <item key="compound" display="Composto"/>
+    <item key="conj" display="Elemento coordenado"/>
+    <item key="cop" display="Verbo de ligação (cópula)"/>
+    <item key="csubj" display="Sujeito oracional"/>
+    <item key="det" display="Determinante"/>
+    <item key="discourse" display="Marcador discursivo"/>
+    <item key="expl" display="Elemento expletivo"/>
+    <item key="fixed" display="Expressão fixa"/>
+    <item key="flat" display="Expressão multi-palavra"/>
+    <item key="flat:foreign" display="Expressão estrangeira"/>
+    <item key="flat:name" display="Nome próprio composto"/>
+    <item key="iobj" display="Objeto indireto"/>
+    <item key="mark" display="Marcador subordinativo"/>
+    <item key="nmod" display="Modificador nominal"/>
+    <item key="nsubj" display="Sujeito"/>
+    <item key="nsubj:pass" display="Sujeito paciente"/>
+    <item key="nummod" display="Modificador numeral"/>
+    <item key="obj" display="Objeto direto"/>
+    <item key="obl" display="Adjunto oblíquo"/>
+    <item key="obl:agent" display="Agente da passiva"/>
+    <item key="parataxis" display="Parataxe"/>
+    <item key="punct" display="Pontuação"/>
+    <item key="root" display="Raiz (núcleo da frase)"/>
+    <item key="vocative" display="Vocativo"/>
+    <item key="xcomp" display="Complemento aberto"/>
+  </options>
+</item>
+    </pattributes>
+
+    <!-- IMPORTANTE: é AQUI que o Query Builder lê os filtros de documento -->
+    <sattributes>
+
+      <item level="text" key="text" display="Busca por Documento">
+
+        <item key="language"
+              display="Língua"
+              type="select"
+              xpath="//teiHeader/profileDesc/langUsage/language/@ident"/>
+
+        <item key="publisher"
+              display="Fonte"
+              type="select"
+              xpath="//teiHeader/fileDesc/publicationStmt/publisher"/>
+
+        <item key="year"
+              display="Ano"
+              type="range"
+              var="number"
+              xpath="//teiHeader/fileDesc/publicationStmt/date[@type='publication']/@when"/>
+
+        <item key="purpose"
+              display="Propósito"
+              type="select"
+              xpath="//teiHeader/profileDesc/textDesc/purpose"/>
+
+        <!-- opcional (mas eu recomendo): tema -->
+        <item key="theme"
+              display="Tema"
+              type="select"
+              xpath="//teiHeader/profileDesc/textClass/keywords[@type='theme']/term"/>
+
+      </item>
+
+      
+<item key="s" level="s" attributes="id"/>
+    </sattributes>
+ 
+  <!-- ========================= -->
+  <!-- Estatísticas  -->
+  <!-- ========================= -->   
+    
+    <stats>
+  <!-- ========================= -->
+  <!-- Estatísticas básicas -->
+  <!-- ========================= -->
+
+        <item var="tokcnt"
+            cql="[]"
+            type="size"
+            display="Total de tokens"/>
+
+        <item var="sentcnt"
+            cql="&lt;s&gt; []"
+            type="size"
+            display="Total de sentenças"/>
+
+  <!-- ========================= -->
+  <!-- Estatísticas lexicais -->
+  <!-- ========================= -->
+
+        <item var="formtypes"
+            cql="group Tokcnt match word"
+            type="count"
+            display="Tipos (formas)"/>
+
+        <item var="lemmatypes"
+            cql="group Tokcnt match lemma"
+            type="count"
+            display="Tipos (lemas)"/>
+
+        <item var="ttr_forms"
+            calc="formtypes/tokcnt"
+            type="calc"
+            display="TTR (formas)"/>
+
+        <item var="ttr_lemmas"
+            calc="lemmatypes/tokcnt"
+            type="calc"
+            display="TTR (lemas)"/>
+
+
+  <!-- ========================= -->
+  <!-- Distribuição gramatical -->
+  <!-- ========================= -->
+
+        <item var="verbs"
+            cql="[upos='VERB']"
+            type="size"
+            display="Total de verbos"/>
+
+        <item var="nouns"
+            cql="[upos='NOUN']"
+            type="size"
+            display="Total de substantivos"/>
+
+        <item var="adjs"
+            cql="[upos='ADJ']"
+            type="size"
+            display="Total de adjetivos"/>
+
+        <item var="advs"
+            cql="[upos='ADV']"
+            type="size"
+            display="Total de advérbios"/>
+    
+    </stats>
+
+  </cqp>
+
+  <!-- ========================= -->
+  <!-- Editable TEI Header Metadata (visualização/edição; não é Query Builder) -->
+  <!-- ========================= -->
+  <teiheader recqp="1">
+
+    <item key="idno_internal"
+          xpath="/TEI/teiHeader/fileDesc/sourceDesc/bibl/idno[@type='internal']"
+          display="ID"
+          show="short"
+          add="1"/>
+
+    <item key="language"
+          xpath="/TEI/teiHeader/profileDesc/langUsage/language/@ident"
+          display="Língua"
+          type="select"
+          input="select"
+          show="short"
+          add="1">
+      <options>
+        <item key="pt-BR" display="Português brasileiro"/>
+        <item key="pt-PT" display="Português europeu"/>
+      </options>
+    </item>
+
+    <item key="publisher"
+          xpath="/TEI/teiHeader/fileDesc/publicationStmt/publisher"
+          display="Fonte"
+          type="select"
+          input="select"
+          show="short"
+          add="1">
+      <options>
+        <item key="G1" display="G1"/>
+        <item key="Inep" display="Inep"/>
+      </options>
+    </item>
+
+    <item key="url"
+          xpath="/TEI/teiHeader/fileDesc/sourceDesc/bibl/ref/@target"
+          display="Link"
+          type="text"
+          show="short"
+          add="1"/>
+
+    <item key="title"
+          xpath="/TEI/teiHeader/fileDesc/titleStmt/title[@type='main']"
+          display="Título"
+          show="short"
+          add="1"/>
+
+    <item key="subtitle"
+          xpath="/TEI/teiHeader/fileDesc/titleStmt/title[@type='sub']"
+          display="Subtítulo"
+          show="short"
+          add="1"/>
+
+    <item key="author"
+          xpath="/TEI/teiHeader/fileDesc/titleStmt/author"
+          display="Autor(a)"
+          show="short"
+          add="1"/>
+
+    <item key="year"
+          xpath="/TEI/teiHeader/fileDesc/publicationStmt/date[@type='publication']/@when"
+          display="Ano"
+          show="short"
+          add="1"/>
+
+    <item key="corpus"
+          xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='corpus']/term"
+          display="Corpus"
+          show="short"
+          add="1"/>
+
+    <item key="domain"
+          xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='domain']/term"
+          display="Domínio"
+          show="short"
+          add="1"/>
+
+    <item key="theme"
+          xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='theme']/term"
+          display="Tema"
+          show="short"
+          add="1"/>
+
+    <item key="purpose"
+          xpath="/TEI/teiHeader/profileDesc/textDesc/purpose"
+          display="Propósito"
+          type="select"
+          input="select"
+          show="short"
+          add="1">
+      <options>
+        <item key="Noticiar" display="Noticiar"/>
+        <item key="Narrar" display="Narrar"/>
+        <item key="Argumentar" display="Argumentar"/>
+      </options>
+    </item>
+
+  </teiheader>
+
+  <!-- ========================= -->
+  <!-- XML Structure (visualização dos tokens) -->
+  <!-- ========================= -->
+  <xmlfile defaultview="interpret"
+           xpath="//*[local-name()='text']"
+           toktag="tok"
+           wordpath="text()">
+
+    <pattributes>
+      <tags>
+        <item key="word" display="Forma"/>  
+        <item key="lemma" display="Lema"/>
+        <item key="upos" display="Classe"/>
+        <item key="feats" display="Traços"/>
+        <item key="deprel" display="Relação"/>
+      </tags>
+    </pattributes>
+
+    <sattributes>
+      <item key="s" level="s"/>
+    </sattributes>
+
+  </xmlfile>
+
+</ttsettings>

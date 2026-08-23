@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TEI>
+  <teiHeader>
+    <profileDesc>
+      <particDesc>
+        <listPerson>
+          <person>
+            <persName>LLOX</persName>
+            <age>18</age>
+            <affiliation>EEOA</affiliation>
+            <education>12</education>
+            <residence>Umarizal</residence>
+            <sex>Male</sex>
+            </person>
+          </listPerson>
+        </particDesc>
+      <langUsage>
+        <language ident="pt-BR"/>
+        </langUsage>
+      <textDesc>
+        <purpose>Argumentar</purpose>
+        </textDesc>
+      <settingDesc>
+        <setting>
+          <date>2018</date>
+          </setting>
+        </settingDesc>
+      </profileDesc>
+    <revisionDesc>
+      <change when="2026-01-09" who="MM">XML file created</change>
+      <change when="2026-05-04T11:47:17.408044" who="DOESTE_UDPIPE_TED_PIPELINE">Automatic POS-tagging, lemmatization and dependency parsing via UDPipe REST service. Model: portuguese-bosque-ud-2.17. Annotation used nform when available; otherwise tok text. Original learner form preserved in tok text and form attribute. Contractions were not expanded in this processing stage.</change></revisionDesc>
+    <fileDesc>
+      <sourceDesc>
+        <bibl>
+          <idno type="internal">LLOX2</idno>
+          </bibl>
+        </sourceDesc>
+      </fileDesc>
+    </teiHeader>
+  <text xml:space="preserve">
+    <p id="p-1">
+      <s>
+        <tok id="w-1" form="Acredito" lemma="acreditar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin" head="0" deprel="root">Acredito</tok>
+        <tok id="w-2" form="que" lemma="que" upos="SCONJ" pos="SCONJ" head="9" deprel="mark">que</tok>
+        <tok id="w-3" form="," lemma="," upos="PUNCT" pos="PUNCT" head="9" deprel="punct">,</tok>
+        <tok id="w-4" form="as" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Fem|Number=Plur|PronType=Art" head="5" deprel="det">as</tok>
+        <tok id="w-5" form="redes" lemma="rede" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Plur" head="9" deprel="nsubj">redes</tok>
+        <tok id="w-6" form="sociais" lemma="social" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="5" deprel="amod">sociais</tok>
+        <tok id="w-7" form="são" lemma="ser" upos="AUX" pos="AUX" feats="Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="9" deprel="cop">são</tok>
+        <tok id="w-8" form="sim" lemma="sim" upos="ADV" pos="ADV" head="9" deprel="advmod">sim</tok>
+        <tok id="w-9" form="importantes" lemma="importante" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="1" deprel="ccomp">importantes</tok>
+        <tok id="w-10" form="." lemma="." upos="PUNCT" pos="PUNCT" head="1" deprel="punct">.</tok>
+        </s>
+      <s>
+        <tok id="w-11" form="Elas" lemma="elas" upos="PRON" pos="PRON" feats="Case=Nom|Gender=Fem|Number=Plur|Person=3|PronType=Prs" head="3" deprel="nsubj">Elas</tok>
+        <tok id="w-12" form="atualmente" lemma="atualmente" upos="ADV" pos="ADV" head="5" deprel="advmod">atualmente</tok>
+        <tok id="w-13" form="vem" lemma="vir" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin" head="0" deprel="root">vem</tok>
+        <tok id="w-14" form="se" lemma="se" upos="PRON" pos="PRON" feats="Case=Acc|Gender=Fem|Number=Plur|Person=3|PronType=Prs" head="5" deprel="expl">se</tok>
+        <tok id="w-15" form="avançado" lemma="avançar" upos="VERB" pos="VERB" feats="Gender=Masc|Number=Sing" head="3" deprel="xcomp">avançado</tok>
+        <tok id="w-16" form="cada" lemma="cada" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="5" deprel="obl">cada</tok>
+        <tok id="w-17" form="vez" lemma="vez" upos="ADP" pos="ADP" head="8" deprel="case">vez</tok>
+        <tok id="w-18" form="mais" lemma="mais" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="6" deprel="nmod">mais</tok>
+        <tok id="w-19" form="," lemma="," upos="PUNCT" pos="PUNCT" head="15" deprel="punct">,</tok>
+        <tok id="w-20" form="com" lemma="com" upos="ADP" pos="ADP" head="12" deprel="case">com</tok>
+        <tok id="w-21" form="esse" lemma="esse" upos="DET" pos="DET" feats="Gender=Masc|Number=Sing|PronType=Dem" head="12" deprel="det">esse</tok>
+        <tok id="w-22" form="avanço" lemma="avanço" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="15" deprel="obl">avanço</tok>
+        <tok id="w-23" form="elas" lemma="elas" upos="PRON" pos="PRON" feats="Case=Nom|Gender=Fem|Number=Plur|Person=3|PronType=Prs" head="15" deprel="nsubj">elas</tok>
+        <tok id="w-24" form="nos" lemma="nós" upos="PRON" pos="PRON" feats="Case=Acc|Number=Plur|Person=1|PronType=Prs" head="15" deprel="obj">nos</tok>
+        <tok id="w-25" form="permite" lemma="permitir" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin" head="5" deprel="conj">permite</tok>
+        <tok id="w-26" form="ir" lemma="ir" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="15" deprel="xcomp">ir</tok>
+        <tok id="w-27" form="ao" lemma="ao" upos="ADP" pos="ADP" head="19" deprel="case">ao</tok>
+        <tok id="w-28" form="outro" lemma="outro" upos="DET" pos="DET" feats="Gender=Masc|Number=Sing|PronType=Ind" head="19" deprel="det">outro</tok>
+        <tok id="w-29" form="lado" lemma="lado" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="16" deprel="obl">lado</tok>
+        <tok id="w-30" form="do" lemma="do" upos="ADP" pos="ADP" head="21" deprel="case">do</tok>
+        <tok id="w-31" form="mundo" lemma="mundo" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="19" deprel="nmod">mundo</tok>
+        <tok id="w-32" form="." lemma="." upos="PUNCT" pos="PUNCT" head="5" deprel="punct">.</tok>
+        </s>
+      <s>
+        <tok form="" id="w-33" lemma="_" upos="PUNCT" pos="PUNCT" head="27" deprel="punct"></tok>
+        <tok id="w-34" form="," lemma="," upos="PUNCT" pos="PUNCT" head="5" deprel="punct">,</tok>
+        <tok id="w-35" form="com" lemma="com" upos="ADP" pos="ADP" head="5" deprel="case">com</tok>
+        <tok id="w-36" form="essa" lemma="esse" upos="DET" pos="DET" feats="Gender=Fem|Number=Sing|PronType=Dem" head="5" deprel="det">essa</tok>
+        <tok id="w-37" form="imensidão" lemma="imensidão" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Sing" head="27" deprel="obl">imensidão</tok>
+        <tok id="w-38" form="de" lemma="de" upos="ADP" pos="ADP" head="8" deprel="case">de</tok>
+        <tok id="w-39" form="novos" lemma="novo" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Plur" head="8" deprel="amod">novos</tok>
+        <tok id="w-40" form="aplicativos" lemma="aplicativo" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Plur" head="5" deprel="nmod">aplicativos</tok>
+        <tok id="w-41" form="que" lemma="que" upos="PRON" pos="PRON" feats="Gender=Masc|Number=Plur|PronType=Rel" head="10" deprel="nsubj">que</tok>
+        <tok id="w-42" form="fazem" lemma="fazer" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="8" deprel="acl:relcl">fazem</tok>
+        <tok id="w-43" form="com" lemma="com" upos="SCONJ" pos="SCONJ" head="17" deprel="mark">com</tok>
+        <tok id="w-44" form="que" lemma="que" upos="SCONJ" pos="SCONJ" head="17" deprel="mark">que</tok>
+        <tok id="w-45" form="os" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Masc|Number=Plur|PronType=Art" head="14" deprel="det">os</tok>
+        <tok id="w-46" form="seres" lemma="ser" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Plur" head="17" deprel="nsubj">seres</tok>
+        <tok id="w-47" form="humanos" lemma="humano" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Plur" head="14" deprel="amod">humanos</tok>
+        <tok id="w-48" form="se" lemma="se" upos="PRON" pos="PRON" feats="Case=Acc|Gender=Masc|Number=Plur|Person=3|PronType=Prs" head="17" deprel="expl">se</tok>
+        <tok id="w-49" form="fechem" lemma="fechar" upos="VERB" pos="VERB" feats="Mood=Sub|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="10" deprel="ccomp">fechem</tok>
+        <tok id="w-50" form="mais" lemma="mais" upos="ADV" pos="ADV" head="17" deprel="advmod">mais</tok>
+        <tok id="w-51" form="e" lemma="e" upos="CCONJ" pos="CCONJ" head="20" deprel="cc">e</tok>
+        <tok id="w-52" form="fiquem" lemma="ficar" upos="VERB" pos="VERB" feats="Mood=Sub|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="17" deprel="conj">fiquem</tok>
+        <tok id="w-53" form="conectados" lemma="conectado" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Plur" head="20" deprel="xcomp">conectados</tok>
+        <tok id="w-54" form="ao" lemma="ao" upos="ADP" pos="ADP" head="23" deprel="case">ao</tok>
+        <tok id="w-55" form="celular" lemma="celular" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="21" deprel="obl">celular</tok>
+        <tok id="w-56" form="ou" lemma="ou" upos="CCONJ" pos="CCONJ" head="25" deprel="cc">ou</tok>
+        <tok id="w-57" form="computador" lemma="computador" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="23" deprel="conj">computador</tok>
+        <tok id="w-58" form="," lemma="," upos="PUNCT" pos="PUNCT" head="17" deprel="punct">,</tok>
+        <tok id="w-59" form="podem" lemma="poder" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="0" deprel="root">podem</tok>
+        <tok id="w-60" form="nos" lemma="nós" upos="PRON" pos="PRON" feats="Case=Acc|Number=Plur|Person=1|PronType=Prs" head="29" deprel="obj">nos</tok>
+        <tok id="w-61" form="levar" lemma="levar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="27" deprel="xcomp">levar</tok>
+        <tok id="w-62" form="ao" lemma="ao" upos="ADP" pos="ADP" head="32" deprel="case">ao</tok>
+        <tok id="w-63" form="um" lemma="um" upos="DET" pos="DET" feats="Definite=Ind|Gender=Masc|Number=Sing|PronType=Art" head="32" deprel="det">um</tok>
+        <tok id="w-64" form="questionamento" lemma="questionamento" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="29" deprel="obl">questionamento</tok>
+        <tok id="w-65" form="," lemma="," upos="PUNCT" pos="PUNCT" head="29" deprel="punct">,</tok>
+        <tok id="w-66" form="será" lemma="ser" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=3|Tense=Fut|VerbForm=Fin" head="29" deprel="parataxis">será</tok>
+        <tok id="w-67" form="que" lemma="que" upos="SCONJ" pos="SCONJ" head="41" deprel="mark">que</tok>
+        <tok id="w-68" form="as" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Fem|Number=Plur|PronType=Art" head="37" deprel="det">as</tok>
+        <tok id="w-69" form="redes" lemma="rede" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Plur" head="41" deprel="nsubj">redes</tok>
+        <tok id="w-70" form="sociais" lemma="social" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="37" deprel="amod">sociais</tok>
+        <tok id="w-71" form="são" lemma="ser" upos="AUX" pos="AUX" feats="Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin" head="41" deprel="cop">são</tok>
+        <tok id="w-72" form="mesmo" lemma="mesmo" upos="ADV" pos="ADV" head="41" deprel="advmod">mesmo</tok>
+        <tok form="importantes?" id="w-73" lemma="importantes?" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="34" deprel="ccomp">importantes?</tok>
+        <tok id="w-74" form="," lemma="," upos="PUNCT" pos="PUNCT" head="44" deprel="punct">,</tok>
+        <tok id="w-75" form="mas" lemma="mas" upos="CCONJ" pos="CCONJ" head="44" deprel="cc">mas</tok>
+        <tok id="w-76" form="vejamos" lemma="vejar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin" head="34" deprel="conj">vejamos</tok>
+        <tok id="w-77" form="como" lemma="como" upos="ADV" pos="ADV" head="47" deprel="advmod">como</tok>
+        <tok id="w-78" form="estamos" lemma="estar" upos="AUX" pos="AUX" feats="Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin" head="47" deprel="aux">estamos</tok>
+        <tok id="w-79" form="usando" lemma="usar" upos="VERB" pos="VERB" feats="VerbForm=Ger" head="44" deprel="ccomp">usando</tok>
+        <tok id="w-80" form="as" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Fem|Number=Plur|PronType=Art" head="49" deprel="det">as</tok>
+        <tok id="w-81" form="redes" lemma="rede" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Plur" head="47" deprel="obj">redes</tok>
+        <tok id="w-82" form="sociais" lemma="social" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="49" deprel="amod">sociais</tok>
+        <tok id="w-83" form="," lemma="," upos="PUNCT" pos="PUNCT" head="53" deprel="punct">,</tok>
+        <tok id="w-84" form="como" lemma="como" upos="SCONJ" pos="SCONJ" head="53" deprel="mark">como</tok>
+        <tok id="w-85" form="mecionei" lemma="mecionar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin" head="58" deprel="advcl">mecionei</tok>
+        <tok id="w-86" form="no" lemma="no" upos="ADP" pos="ADP" head="55" deprel="case">no</tok>
+        <tok id="w-87" form="início" lemma="início" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="53" deprel="obl">início</tok>
+        <tok id="w-88" form="," lemma="," upos="PUNCT" pos="PUNCT" head="53" deprel="punct">,</tok>
+        <tok id="w-89" form="elas" lemma="elas" upos="PRON" pos="PRON" feats="Case=Nom|Gender=Fem|Number=Plur|Person=3|PronType=Prs" head="58" deprel="nsubj">elas</tok>
+        <tok id="w-90" form="permiti" lemma="permitir" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin" head="34" deprel="conj">permiti</tok>
+        <tok id="w-91" form="que" lemma="que" upos="SCONJ" pos="SCONJ" head="60" deprel="mark">que</tok>
+        <tok id="w-92" form="mantemos" lemma="manter" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin" head="58" deprel="ccomp">mantemos</tok>
+        <tok id="w-93" form="contato" lemma="contato" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="60" deprel="obj">contato</tok>
+        <tok id="w-94" form="com" lemma="com" upos="ADP" pos="ADP" head="63" deprel="case">com</tok>
+        <tok id="w-95" form="familiares" lemma="familiar" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Plur" head="61" deprel="nmod">familiares</tok>
+        <tok id="w-96" form="," lemma="," upos="PUNCT" pos="PUNCT" head="65" deprel="punct">,</tok>
+        <tok id="w-97" form="amigos" lemma="amigo" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Plur" head="63" deprel="conj">amigos</tok>
+        <tok id="w-98" form="e" lemma="e" upos="CCONJ" pos="CCONJ" head="69" deprel="cc">e</tok>
+        <tok id="w-99" form="até" lemma="até" upos="ADV" pos="ADV" head="68" deprel="advmod">até</tok>
+        <tok id="w-100" form="mesmo" lemma="mesmo" upos="ADV" pos="ADV" head="69" deprel="advmod">mesmo</tok>
+        <tok id="w-101" form="trabalhar" lemma="trabalhar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="63" deprel="conj">trabalhar</tok>
+        <tok id="w-102" form="." lemma="." upos="PUNCT" pos="PUNCT" head="29" deprel="punct">.</tok>
+        </s>
+      <s>
+        <tok id="w-103" form="As" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Fem|Number=Plur|PronType=Art" head="2" deprel="det">As</tok>
+        <tok id="w-104" form="redes" lemma="rede" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Plur" head="8" deprel="nsubj">redes</tok>
+        <tok id="w-105" form="sociais" lemma="social" upos="ADJ" pos="ADJ" feats="Gender=Fem|Number=Plur" head="2" deprel="amod">sociais</tok>
+        <tok id="w-106" form="como" lemma="como" upos="ADP" pos="ADP" head="7" deprel="case">como</tok>
+        <tok id="w-107" form="qualquer" lemma="qualquer" upos="DET" pos="DET" feats="Gender=Fem|Number=Sing|PronType=Ind" head="7" deprel="det">qualquer</tok>
+        <tok id="w-108" form="outra" lemma="outro" upos="DET" pos="DET" feats="Gender=Fem|Number=Sing|PronType=Ind" head="7" deprel="det">outra</tok>
+        <tok id="w-109" form="coisa" lemma="coisa" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Sing" head="2" deprel="nmod">coisa</tok>
+        <tok id="w-110" form="tem" lemma="ter" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin" head="0" deprel="root">tem</tok>
+        <tok id="w-111" form="também" lemma="também" upos="ADV" pos="ADV" head="8" deprel="advmod">também</tok>
+        <tok id="w-112" form="o" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Masc|Number=Sing|PronType=Art" head="12" deprel="det">o</tok>
+        <tok id="w-113" form="seu" lemma="seu" upos="DET" pos="DET" feats="Gender=Masc|Number=Sing|PronType=Prs" head="12" deprel="det">seu</tok>
+        <tok id="w-114" form="lado" lemma="lado" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="8" deprel="obj">lado</tok>
+        <tok form="ruim." id="w-115" lemma="ruim." upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Sing" head="12" deprel="amod">ruim.</tok>
+        <tok id="w-116" form="a" lemma="a" upos="ADP" pos="ADP" head="16" deprel="case">a</tok>
+        <tok id="w-117" form="cada" lemma="cada" upos="DET" pos="DET" feats="Gender=Masc|Number=Sing|PronType=Tot" head="16" deprel="det">cada</tok>
+        <tok id="w-118" form="usuário" lemma="usuário" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="17" deprel="nsubj">usuário</tok>
+        <tok id="w-119" form="saber" lemma="saber" upos="VERB" pos="VERB" feats="Number=Sing|Person=3|VerbForm=Inf" head="8" deprel="advcl">saber</tok>
+        <tok id="w-120" form="dosa" lemma="dosar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin" head="17" deprel="xcomp">dosa</tok>
+        <tok id="w-121" form="o" lemma="o" upos="DET" pos="DET" feats="Definite=Def|Gender=Masc|Number=Sing|PronType=Art" head="21" deprel="det">o</tok>
+        <tok id="w-122" form="seu" lemma="seu" upos="DET" pos="DET" feats="Gender=Masc|Number=Sing|PronType=Prs" head="21" deprel="det">seu</tok>
+        <tok id="w-123" form="modo" lemma="modo" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="18" deprel="obj">modo</tok>
+        <tok id="w-124" form="de" lemma="de" upos="SCONJ" pos="SCONJ" head="23" deprel="mark">de</tok>
+        <tok id="w-125" form="usar" lemma="usar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="21" deprel="acl">usar</tok>
+        <tok id="w-126" form="," lemma="," upos="PUNCT" pos="PUNCT" head="25" deprel="punct">,</tok>
+        <tok id="w-127" form="seja" lemma="ser" upos="VERB" pos="VERB" feats="Mood=Sub|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin" head="21" deprel="acl">seja</tok>
+        <tok id="w-128" form="para" lemma="para" upos="SCONJ" pos="SCONJ" head="28" deprel="mark">para</tok>
+        <tok id="w-129" form="se" lemma="se" upos="PRON" pos="PRON" feats="Case=Acc|Gender=Masc|Number=Sing|Person=3|PronType=Prs" head="28" deprel="expl">se</tok>
+        <tok id="w-130" form="divitir" lemma="divitir" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="25" deprel="advcl">divitir</tok>
+        <tok id="w-131" form="," lemma="," upos="PUNCT" pos="PUNCT" head="30" deprel="punct">,</tok>
+        <tok id="w-132" form="trabalhar" lemma="trabalhar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="28" deprel="conj">trabalhar</tok>
+        <tok id="w-133" form="ou" lemma="ou" upos="CCONJ" pos="CCONJ" head="35" deprel="cc">ou</tok>
+        <tok id="w-134" form="apenas" lemma="apenas" upos="ADV" pos="ADV" head="35" deprel="advmod">apenas</tok>
+        <tok id="w-135" nform="para" form="pra" lemma="para" upos="SCONJ" pos="SCONJ" head="35" deprel="mark">pra</tok>
+        <tok id="w-136" form="se" lemma="se" upos="PRON" pos="PRON" feats="Case=Acc|Gender=Masc|Number=Sing|Person=3|PronType=Prs" head="35" deprel="expl">se</tok>
+        <tok id="w-137" form="manter" lemma="manter" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="28" deprel="conj">manter</tok>
+        <tok id="w-138" form="conectado" lemma="conectar" upos="VERB" pos="VERB" feats="Gender=Masc|Number=Sing|VerbForm=Part" head="35" deprel="xcomp">conectado</tok>
+        <tok id="w-139" form="ao" lemma="ao" upos="ADP" pos="ADP" head="38" deprel="case">ao</tok>
+        <tok id="w-140" form="mundo" lemma="mundo" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="36" deprel="obl">mundo</tok>
+        <tok id="w-141" form="da" lemma="da" upos="ADP" pos="ADP" head="40" deprel="case">da</tok>
+        <tok id="w-142" form="tecnologia" lemma="tecnologia" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Sing" head="38" deprel="nmod">tecnologia</tok>
+        <tok id="w-143" form="que" lemma="que" upos="PRON" pos="PRON" feats="Gender=Fem|Number=Sing|PronType=Rel" head="42" deprel="obj">que</tok>
+        <tok id="w-144" form="temos" lemma="ter" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin" head="38" deprel="acl:relcl">temos</tok>
+        <tok id="w-145" form="." lemma="." upos="PUNCT" pos="PUNCT" head="8" deprel="punct">.</tok>
+        </s>
+      </p>
+    </text>
+  </TEI>

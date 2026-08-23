@@ -1,0 +1,35 @@
+# DOESTE — arquivos não versionados
+
+# Índices CQP gerados pelo TEITOK
+*/cqp/
+
+# Arquivos temporários e logs
+*/tmp/
+
+# Templates compilados/cache
+*/templates_c/
+
+# Lixeira do TEITOK
+*/Trash/
+
+# Backups automáticos
+*/backups/
+
+# Listas de usuários — podem conter credenciais
+*/Resources/userlist.xml
+
+# Arquivos do macOS
+.DS_Store
+**/.DS_Store
+
+# Arquivos de ambiente e credenciais
+.env
+.env.*
+*.secret
+*.credentials
+
+# Dados intermediários do pipeline TED
+ted/xmlfiles_raw/
+ted/xmlfiles_annotated/
+Scripts
+scripts_ted/arquivos_com_erro.txt

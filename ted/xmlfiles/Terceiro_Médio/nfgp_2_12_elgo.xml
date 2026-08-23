@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TEI>
+  <teiHeader>
+    <revisionDesc>
+      <change when="2026-01-09" who="MM">XML file created</change>
+      <change when="2026-05-04T11:28:35.562925" who="DOESTE_UDPIPE_TED_PIPELINE">Automatic POS-tagging, lemmatization and dependency parsing via UDPipe REST service. Model: portuguese-bosque-ud-2.17. Annotation used nform when available; otherwise tok text. Original learner form preserved in tok text and form attribute. Contractions were not expanded in this processing stage.</change></revisionDesc>
+    <fileDesc>
+      <sourceDesc>
+        <bibl>
+          <idno type="internal">NFGP2</idno>
+          </bibl>
+        </sourceDesc>
+      </fileDesc>
+    <profileDesc>
+      <particDesc>
+        <listPerson>
+          <person>
+            <persName>NFGP</persName>
+            <age>17</age>
+            <affiliation>ELGO</affiliation>
+            <education>12th</education>
+            <residence>Caraúbas</residence>
+            <langKnown>Brazilian Portuguese</langKnown>
+            </person>
+          </listPerson>
+        <person>
+          <sex>Female</sex>
+          </person>
+        </particDesc>
+      <langUsage>
+        <language ident="pt-BR"/>
+        </langUsage>
+      <textDesc>
+        <purpose>Argumentar</purpose>
+        </textDesc>
+      <settingDesc>
+        <date>2017</date>
+        </settingDesc>
+      </profileDesc>
+    </teiHeader>
+  <text xml:space="preserve">
+    <pb facs="nfgp_2_12_elgo.jpg" id="e-1"/>
+    <p id="p-1">Nos dias atuais as redes sociais vem se expandindo no mundo todo, com isso vê-se que elas são importantes e necessárias atualmente trazendo assim ponto positivos e negativos para a sociedade.<br/>Contudo, as pessoas tem mais acesso as informações e conseguem se comunicar mais facilmente, com o uso das redes sociais pessoas que moram longe conseguem se comunicar outra que estar distante, coisa que há anos atrás demorava bastante, isso é um dos pontos positivos dos meios de comunicação.<br/>Porém, a internet também serve para coisas negativas como passar conteúdos inadequados como pornografia, pois o acesso a internet está tão rápido que pessoas de má índole passa conteúdos pornográficos com mais facilidade.<br/>Portanto, as pessoas que fazem uso das redes socias para fazer coisas erradas precisam se conscientizar que está errado e não fazer mais para quem usa para o bem continuem usando consciente.</p>
+    </text>
+  </TEI>

@@ -1,0 +1,46 @@
+<h2><strong>Como pesquisar no Corpus TED</strong></h2>
+<p class="p3">O Corpus TED permite realizar <span class="s2"><strong>buscas lingu&iacute;sticas</strong></span> por meio da linguagem <span class="s2"><strong>CQP (Corpus Query Language)</strong></span>, que possibilita localizar palavras, padr&otilde;es gramaticais e estruturas recorrentes nos textos.</p>
+<p class="p3">As buscas s&atilde;o feitas na caixa acima, onde voc&ecirc; pode digitar a <span class="s2"><strong>express&atilde;o de busca</strong></span>. Tamb&eacute;m &eacute; poss&iacute;vel utilizar o <span class="s2"><strong>construtor de consultas</strong></span>.</p>
+<hr />
+<h2><strong>Exemplos de busca</strong></h2>
+<h3><strong>Buscar uma palavra espec&iacute;fica</strong></h3>
+<p>[lemma="casa"]</p>
+<p class="p1">Retorna todas as ocorr&ecirc;ncias da palavra <em>casa</em>, independentemente de flex&atilde;o (casa, casas).</p>
+<h3><strong>Buscar </strong><strong>padr&otilde;es gramaticais</strong></h3>
+<p>[lemma="casa"] [upos="ADJ"]</p>
+<p class="p1">Retorna ocorr&ecirc;ncias de <em>casa</em> seguidas de um adjetivo.</p>
+<h3><strong>Buscar classe gramatical</strong></h3>
+<p>[upos="VERB"]</p>
+<p>Retorna todos os verbos do corpus.</p>
+<h2><strong>Usando o construtor de consultas</strong></h2>
+<p class="p1">Se voc&ecirc; n&atilde;o est&aacute; familiarizado com a linguagem CQP, pode utilizar o <span class="s1"><button type="button">Criar consulta</button> </span>:</p>
+<ol start="1">
+<li>
+<p class="p1">Clique no &iacute;cone do construtor de consulta&nbsp;</p>
+</li>
+<li>
+<p class="p1">Defina os crit&eacute;rios (palavra, lema, classe gramatical etc.)</p>
+</li>
+<li>
+<p class="p1"><span class="s1">Clique em </span><strong>Criar consulta</strong></p>
+</li>
+<li>
+<p class="p1">Execute a busca</p>
+</li>
+</ol>
+<h2><strong>Buscar documentos</strong></h2>
+<p class="p3">Para listar documentos do corpus, basta executar a busca sem definir palavras espec&iacute;ficas. Isso permite explorar os textos dispon&iacute;veis antes de realizar an&aacute;lises mais detalhadas.</p>
+<h2><strong>Sobre a linguagem de busca</strong></h2>
+<p class="p3">A linguagem CQP permite definir propriedades lingu&iacute;sticas como:</p>
+<ul>
+<li>
+<p class="p1"><span class="s1"><strong>lemma</strong></span> &rarr; forma base da palavra</p>
+</li>
+<li>
+<p class="p1"><span class="s1"><strong>upos</strong></span> &rarr; classe gramatical</p>
+</li>
+<li>
+<p class="p1"><span class="s1"><strong>word</strong></span> &rarr; forma exata</p>
+</li>
+</ul>
+<p class="p3">Para mais detalhes, consulte a <a href="https://cwb.sourceforge.io/documentation.php">documenta&ccedil;&atilde;o do CQP</a>.</p>

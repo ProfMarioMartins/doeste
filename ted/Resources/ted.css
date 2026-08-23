@@ -1,0 +1,50 @@
+/* Tema visual específico do Corpus TED */
+
+:root {
+  --ted-primary: #5b3f8c;
+  --ted-primary-dark: #43286f;
+  --ted-accent: #b88a44;
+  --ted-border: #d8c8ee;
+}
+
+body .sidebar {
+  background: var(--ted-primary-dark) !important;
+}
+
+body .brand-title,
+body .brand-subtitle {
+  color: #ffffff !important;
+}
+
+body .brand-divider {
+  border-color: var(--ted-border) !important;
+}
+
+body .nav a,
+body .nav li,
+body .nav li a {
+  color: #ffffffcc !important;
+}
+
+body .nav a:hover,
+body .nav li:hover {
+  color: var(--ted-accent) !important;
+}
+
+body .content h1,
+body .content h2,
+body .content h3 {
+  color: var(--ted-primary-dark) !important;
+}
+
+body .content h1 {
+  border-bottom: 2px solid var(--ted-border) !important;
+}
+
+body .content a {
+  color: var(--ted-primary) !important;
+}
+
+body .content a:hover {
+  color: var(--ted-accent) !important;
+}

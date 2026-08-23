@@ -1,0 +1,112 @@
+<h1><strong>Metodologia</strong></h1>
+<p class="p3">Esta p&aacute;gina descreve, de forma simplificada, como o Corpus TED foi constru&iacute;do. O objetivo &eacute; tornar o processo metodol&oacute;gico transparente e permitir que outros pesquisadores compreendam, utilizem ou reproduzam o corpus.</p>
+<hr />
+<h2><strong>1. Sele&ccedil;&atilde;o dos textos</strong></h2>
+<p class="p3">Os textos do Corpus TED foram coletados a partir de portais jornal&iacute;sticos de ampla circula&ccedil;&atilde;o no Brasil. A escolha dessas fontes levou em considera&ccedil;&atilde;o:</p>
+<ul>
+<li>
+<p class="p1">regularidade de publica&ccedil;&atilde;o</p>
+</li>
+<li>
+<p class="p1">diversidade tem&aacute;tica (economia, educa&ccedil;&atilde;o, pol&iacute;tica, sa&uacute;de, entre outros)</p>
+</li>
+<li>
+<p class="p1">acesso p&uacute;blico aos conte&uacute;dos</p>
+</li>
+</ul>
+<p class="p3">O foco foi reunir textos representativos do jornalismo digital contempor&acirc;neo em portugu&ecirc;s brasileiro.</p>
+<hr />
+<h2><strong>2. Coleta automatizada</strong></h2>
+<p class="p3">A coleta dos textos foi realizada com o aux&iacute;lio de scripts em Python, que acessam p&aacute;ginas p&uacute;blicas da web e identificam automaticamente os links das not&iacute;cias.</p>
+<p class="p3">Em seguida, cada p&aacute;gina foi processada para extrair apenas o conte&uacute;do principal da not&iacute;cia, evitando elementos como:</p>
+<ul>
+<li>
+<p class="p1">menus de navega&ccedil;&atilde;o</p>
+</li>
+<li>
+<p class="p1">an&uacute;ncios</p>
+</li>
+<li>
+<p class="p1">links do tipo &ldquo;Leia tamb&eacute;m&rdquo; ou &ldquo;Veja mais&rdquo;</p>
+</li>
+</ul>
+<p class="p3">Esse processo garante que o corpus contenha essencialmente o texto jornal&iacute;stico.</p>
+<hr />
+<h2><strong>3. Extra&ccedil;&atilde;o do texto</strong></h2>
+<p class="p3">O conte&uacute;do textual foi extra&iacute;do com base na estrutura HTML das p&aacute;ginas, por meio da identifica&ccedil;&atilde;o de elementos espec&iacute;ficos (tags e classes) que delimitam o corpo da not&iacute;cia.</p>
+<p class="p3">Esse procedimento foi ajustado ao longo do processo, a partir da an&aacute;lise de diferentes p&aacute;ginas, para garantir maior consist&ecirc;ncia na recupera&ccedil;&atilde;o dos textos.</p>
+<hr />
+<h2><strong>4. Organiza&ccedil;&atilde;o e estrutura&ccedil;&atilde;o (TEI/XML)</strong></h2>
+<p class="p3">Ap&oacute;s a coleta, os textos foram convertidos para o formato <span class="s2"><strong>TEI/XML</strong></span>, um padr&atilde;o internacional utilizado na organiza&ccedil;&atilde;o de corpora lingu&iacute;sticos.</p>
+<p class="p3">Nessa etapa, cada documento passa a ter uma estrutura definida, incluindo:</p>
+<ul>
+<li>
+<p class="p1">identifica&ccedil;&atilde;o do texto</p>
+</li>
+<li>
+<p class="p1">t&iacute;tulo e subt&iacute;tulo</p>
+</li>
+<li>
+<p class="p1">metadados (fonte, ano, tema etc.)</p>
+</li>
+<li>
+<p class="p1">divis&atilde;o em par&aacute;grafos</p>
+</li>
+</ul>
+<p class="p3">Essa padroniza&ccedil;&atilde;o permite que os textos sejam analisados de forma sistem&aacute;tica.</p>
+<hr />
+<h2><strong>5. Tratamento do texto</strong></h2>
+<p class="p3">Durante o processamento, foram removidos elementos que n&atilde;o fazem parte do conte&uacute;do principal da not&iacute;cia, como chamadas de navega&ccedil;&atilde;o ou trechos repetidos da p&aacute;gina.</p>
+<p class="p3">Importante:</p>
+<p class="p3">✔ O conte&uacute;do verbal dos textos foi preservado</p>
+<p class="p3">✔ N&atilde;o houve corre&ccedil;&atilde;o ortogr&aacute;fica ou gramatical</p>
+<p class="p3">Isso garante que o corpus represente o uso real da l&iacute;ngua.</p>
+<hr />
+<h2><strong>6. Anota&ccedil;&atilde;o lingu&iacute;stica</strong></h2>
+<p class="p3">Os textos foram automaticamente anotados com informa&ccedil;&otilde;es lingu&iacute;sticas, utilizando o sistema <span class="s2"><strong>UDPipe</strong></span>.</p>
+<p class="p3">Essa anota&ccedil;&atilde;o inclui:</p>
+<ul>
+<li>
+<p class="p1">segmenta&ccedil;&atilde;o em palavras (tokeniza&ccedil;&atilde;o)</p>
+</li>
+<li>
+<p class="p1">forma b&aacute;sica das palavras (lemas)</p>
+</li>
+<li>
+<p class="p1">classes gramaticais</p>
+</li>
+<li>
+<p class="p1">rela&ccedil;&otilde;es sint&aacute;ticas (quando dispon&iacute;veis)</p>
+</li>
+</ul>
+<p class="p3">Essas informa&ccedil;&otilde;es permitem realizar buscas mais avan&ccedil;adas, como localizar padr&otilde;es gramaticais ou estruturas espec&iacute;ficas.</p>
+<hr />
+<h2><strong>7. Integra&ccedil;&atilde;o no DOESTE</strong></h2>
+<p class="p3">Ap&oacute;s o processamento, os textos foram integrados ao reposit&oacute;rio <span class="s2"><strong>DOESTE</strong></span>, utilizando a plataforma <span class="s2"><strong>TEITOK</strong></span>.</p>
+<p class="p3">Nesse ambiente, &eacute; poss&iacute;vel:</p>
+<ul>
+<li>
+<p class="p1">pesquisar palavras e express&otilde;es</p>
+</li>
+<li>
+<p class="p1">filtrar textos por metadados</p>
+</li>
+<li>
+<p class="p1">explorar padr&otilde;es lingu&iacute;sticos</p>
+</li>
+</ul>
+<hr />
+<h2><strong>8. Limita&ccedil;&otilde;es</strong></h2>
+<p class="p3">Como parte do processo foi automatizada, podem ocorrer:</p>
+<ul>
+<li>
+<p class="p1">pequenas falhas na extra&ccedil;&atilde;o do texto</p>
+</li>
+<li>
+<p class="p1">erros pontuais na anota&ccedil;&atilde;o lingu&iacute;stica</p>
+</li>
+</ul>
+<p class="p3">Essas limita&ccedil;&otilde;es s&atilde;o comuns em corpora de grande escala e n&atilde;o comprometem seu uso para an&aacute;lises gerais. Ainda assim, sugest&otilde;es, corre&ccedil;&otilde;es ou relatos de inconsist&ecirc;ncias s&atilde;o bem-vindos e podem ser encaminhados para: gpelt@ufersa.edu.br.</p>
+<hr />
+<h2><strong>9. Atualiza&ccedil;&atilde;o do corpus</strong></h2>
+<p class="p3">O Corpus TED est&aacute; em desenvolvimento cont&iacute;nuo. Novos textos podem ser incorporados ao longo do tempo, ampliando sua representatividade.</p>

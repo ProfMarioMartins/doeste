@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<ttsettings>
+
+  <!-- ========================= -->
+  <!-- Defaults -->
+  <!-- ========================= -->
+  <defaults>
+    <title display="Corpus TED"/>
+    <base foldername="ted" javascript="/Scripts/" css="/common/css/"/>
+  </defaults>
+
+  <!-- ========================= -->
+  <!-- Interface language -->
+  <!-- ========================= -->
+  <languages prefixed="0" default="pt">
+    <language code="pt" locale="pt_BR.UTF-8" menu="PT"/>
+  </languages>
+
+  <!-- ========================= -->
+  <!-- Menu -->
+  <!-- ========================= -->
+  <menu>
+    <itemlist>
+      <item key="home" display="Início"/>
+      <item key="cqp" display="Pesquisa"/>
+      <item key="metodo" display="Metodologia"/>
+    </itemlist>
+  </menu>
+
+  <!-- ========================= -->
+  <!-- CQP Configuration -->
+  <!-- ========================= -->
+  <cqp corpus="ted"
+       searchfolder="xmlfiles"
+       tokxpath="//*[local-name()='tok']"
+       wordpath="text()"
+       cqpfolder="cqp">
+
+    <!-- ========================= -->
+    <!-- Token attributes -->
+    <!-- ========================= -->
+    <pattributes>
+
+      <item key="word" display="Forma"/>
+      <item key="form" display="Forma original"/>
+      <item key="nform" display="Forma normalizada"/>
+      <item key="lemma" display="Lema"/>
+      <item key="upos" display="Classe gramatical" type="select">
+        <options>
+          <item key="ADJ" display="Adjetivo"/>
+          <item key="ADP" display="Preposição"/>
+          <item key="ADV" display="Advérbio"/>
+          <item key="AUX" display="Verbo auxiliar"/>
+          <item key="CCONJ" display="Conjunção coordenativa"/>
+          <item key="DET" display="Determinante"/>
+          <item key="INTJ" display="Interjeição"/>
+          <item key="NOUN" display="Substantivo comum"/>
+          <item key="NUM" display="Numeral"/>
+          <item key="PRON" display="Pronome"/>
+          <item key="PROPN" display="Nome próprio"/>
+          <item key="PUNCT" display="Pontuação"/>
+          <item key="SCONJ" display="Conjunção subordinativa"/>
+          <item key="SYM" display="Símbolo"/>
+          <item key="VERB" display="Verbo"/>
+          <item key="X" display="Outro"/>
+        </options>
+      </item>
+
+      <item key="pos" display="POS"/>
+      <item key="feats" display="Traços morfológicos"/>
+      <item key="semclass" display="Classe semântica"/>
+      <item key="process" display="Tipo de processo"/>
+
+      <item key="deprel" display="Relação sintática" type="select">
+        <options>
+          <item key="acl" display="Modificador de nome por oração"/>
+          <item key="acl:relcl" display="Oração relativa"/>
+          <item key="advcl" display="Adjunto adverbial oracional"/>
+          <item key="advmod" display="Modificador adverbial"/>
+          <item key="amod" display="Modificador adjetival"/>
+          <item key="appos" display="Aposto"/>
+          <item key="aux" display="Verbo auxiliar"/>
+          <item key="aux:pass" display="Auxiliar de voz passiva"/>
+          <item key="case" display="Marcador de caso"/>
+          <item key="cc" display="Conjunção coordenativa"/>
+          <item key="ccomp" display="Complemento oracional"/>
+          <item key="compound" display="Composto"/>
+          <item key="conj" display="Elemento coordenado"/>
+          <item key="cop" display="Cópula"/>
+          <item key="csubj" display="Sujeito oracional"/>
+          <item key="det" display="Determinante"/>
+          <item key="discourse" display="Marcador discursivo"/>
+          <item key="expl" display="Elemento expletivo"/>
+          <item key="fixed" display="Expressão fixa"/>
+          <item key="flat" display="Expressão multipalavra"/>
+          <item key="flat:foreign" display="Expressão estrangeira"/>
+          <item key="flat:name" display="Nome próprio composto"/>
+          <item key="iobj" display="Objeto indireto"/>
+          <item key="mark" display="Marcador subordinativo"/>
+          <item key="nmod" display="Modificador nominal"/>
+          <item key="nsubj" display="Sujeito"/>
+          <item key="nsubj:pass" display="Sujeito paciente"/>
+          <item key="nummod" display="Modificador numeral"/>
+          <item key="obj" display="Objeto direto"/>
+          <item key="obl" display="Adjunto oblíquo"/>
+          <item key="obl:agent" display="Agente da passiva"/>
+          <item key="parataxis" display="Parataxe"/>
+          <item key="punct" display="Pontuação"/>
+          <item key="root" display="Raiz"/>
+          <item key="vocative" display="Vocativo"/>
+          <item key="xcomp" display="Complemento aberto"/>
+        </options>
+      </item>
+
+      <item key="head" display="Núcleo sintático"/>
+
+    </pattributes>
+
+    <!-- ========================= -->
+    <!-- Structural/document attributes for Query Builder -->
+    <!-- ========================= -->
+    <sattributes>
+
+      <item level="text" key="text" display="Busca por Documento">
+
+        <item key="idno"
+              display="ID do texto"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='sourceDesc']/*[local-name()='bibl']/*[local-name()='idno'][@type='internal']"/>
+
+        <item key="student"
+              display="Participante"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='persName']"/>
+
+        <item key="age"
+              display="Idade"
+              type="range"
+              var="number"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='age']"/>
+
+        <item key="affiliation"
+              display="Escola"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='affiliation']"/>
+
+        <item key="education"
+              display="Ano escolar"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='education']"/>
+
+        <item key="residence"
+              display="Cidade"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='residence']"/>
+
+        <item key="sex"
+              display="Sexo"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='sex']"/>
+
+        <item key="language"
+              display="Língua"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='langUsage']/*[local-name()='language']/@ident"/>
+
+        <item key="purpose"
+              display="Propósito"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textDesc']/*[local-name()='purpose']"/>
+
+        <item key="year"
+              display="Ano de produção"
+              type="range"
+              var="number"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='settingDesc']/*[local-name()='setting']/*[local-name()='date']"/>
+
+        <item key="domain"
+              display="Domínio"
+              type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textClass']/*[local-name()='keywords']/*[local-name()='term']"/>
+
+      </item>
+
+      <item key="s" level="s" attributes="id"/>
+
+    </sattributes>
+
+    <!-- ========================= -->
+    <!-- Estatísticas -->
+    <!-- ========================= -->
+    <stats>
+
+      <item var="tokcnt"
+            cql="[]"
+            type="size"
+            display="Total de tokens"/>
+
+      <item var="sentcnt"
+            cql="&lt;s&gt; []"
+            type="size"
+            display="Total de sentenças"/>
+
+      <item var="formtypes"
+            cql="group Tokcnt match word"
+            type="count"
+            display="Tipos de formas"/>
+
+      <item var="lemmatypes"
+            cql="group Tokcnt match lemma"
+            type="count"
+            display="Tipos de lemas"/>
+
+      <item var="ttr_forms"
+            calc="formtypes/tokcnt"
+            type="calc"
+            display="TTR por forma"/>
+
+      <item var="ttr_lemmas"
+            calc="lemmatypes/tokcnt"
+            type="calc"
+            display="TTR por lema"/>
+
+      <item var="verbs"
+            cql="[upos='VERB']"
+            type="size"
+            display="Total de verbos"/>
+
+      <item var="aux"
+            cql="[upos='AUX']"
+            type="size"
+            display="Total de auxiliares"/>
+
+      <item var="nouns"
+            cql="[upos='NOUN']"
+            type="size"
+            display="Total de substantivos"/>
+
+      <item var="adjs"
+            cql="[upos='ADJ']"
+            type="size"
+            display="Total de adjetivos"/>
+
+      <item var="advs"
+            cql="[upos='ADV']"
+            type="size"
+            display="Total de advérbios"/>
+
+      <item var="pronouns"
+            cql="[upos='PRON']"
+            type="size"
+            display="Total de pronomes"/>
+
+      <item var="mental_processes"
+            cql="[semclass='cognitive']"
+            type="size"
+            display="Processos cognitivos"/>
+
+    </stats>
+
+  </cqp>
+
+  <!-- ========================= -->
+  <!-- TEI Header Metadata -->
+  <!-- ========================= -->
+  <teiheader recqp="1">
+
+    <item key="idno_internal"
+          xpath="/TEI/teiHeader/fileDesc/sourceDesc/bibl/idno[@type='internal']"
+          display="ID"
+          show="short"
+          add="1"/>
+
+    <item key="student"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/persName"
+          display="Participante"
+          show="short"
+          add="1"/>
+
+    <item key="age"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/age"
+          display="Idade"
+          show="short"
+          add="1"/>
+
+    <item key="affiliation"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/affiliation"
+          display="Escola"
+          show="short"
+          add="1"/>
+
+    <item key="education"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/education"
+          display="Ano escolar"
+          show="short"
+          add="1"/>
+
+    <item key="residence"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/residence"
+          display="Cidade"
+          show="short"
+          add="1"/>
+
+    <item key="sex"
+          xpath="/TEI/teiHeader/profileDesc/particDesc/listPerson/person/sex"
+          display="Sexo"
+          show="short"
+          add="1"/>
+
+    <item key="language"
+          xpath="/TEI/teiHeader/profileDesc/langUsage/language/@ident"
+          display="Língua"
+          show="short"
+          add="1"/>
+
+    <item key="purpose"
+          xpath="/TEI/teiHeader/profileDesc/textDesc/purpose"
+          display="Propósito"
+          show="short"
+          add="1"/>
+
+    <item key="year"
+          xpath="/TEI/teiHeader/profileDesc/settingDesc/setting/date"
+          display="Ano de produção"
+          show="short"
+          add="1"/>
+
+    <item key="domain"
+          xpath="/TEI/teiHeader/profileDesc/textClass/keywords/term"
+          display="Domínio"
+          show="short"
+          add="1"/>
+
+  </teiheader>
+
+  <!-- ========================= -->
+  <!-- XML Structure -->
+  <!-- ========================= -->
+  <xmlfile defaultview="interpret"
+           xpath="//*[local-name()='text']"
+           toktag="tok"
+           wordpath="text()">
+
+    <pattributes>
+      <tags>
+        <item key="word" display="Forma"/>
+        <item key="form" display="Forma original"/>
+        <item key="nform" display="Forma normalizada"/>
+        <item key="lemma" display="Lema"/>
+        <item key="upos" display="Classe"/>
+        <item key="pos" display="POS"/>
+        <item key="feats" display="Traços"/>
+        <item key="semclass" display="Classe semântica"/>
+        <item key="process" display="Tipo de processo"/>
+        <item key="head" display="Núcleo"/>
+        <item key="deprel" display="Relação"/>
+      </tags>
+    </pattributes>
+
+    <sattributes>
+      <item key="s" level="s"/>
+    </sattributes>
+
+  </xmlfile>
+
+</ttsettings>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TEI>
+  <teiHeader>
+    <profileDesc>
+      <particDesc>
+        <listPerson>
+          <person>
+            <persName>DRLX</persName>
+            <age>11</age>
+            <affiliation>EJO</affiliation>
+            <education>5</education>
+            <residence>Caraúbas</residence>
+            <sex>Male</sex>
+            </person>
+          </listPerson>
+        </particDesc>
+      <langUsage>
+        <language ident="pt-BR"/>
+        </langUsage>
+      <textDesc>
+        <purpose>Argumentar</purpose>
+        </textDesc>
+      <settingDesc>
+        <setting>
+          <date>2017</date>
+          </setting>
+        </settingDesc>
+      </profileDesc>
+    <revisionDesc>
+      <change when="2026-01-09" who="MM">XML file created</change>
+      <change when="2026-05-04T10:54:47.517857" who="DOESTE_UDPIPE_TED_PIPELINE">Automatic POS-tagging, lemmatization and dependency parsing via UDPipe REST service. Model: portuguese-bosque-ud-2.17. Annotation used nform when available; otherwise tok text. Original learner form preserved in tok text and form attribute. Contractions were not expanded in this processing stage.</change></revisionDesc>
+    <fileDesc>
+      <sourceDesc>
+        <bibl>
+          <idno type="internal">DRLX2</idno>
+          </bibl>
+        </sourceDesc>
+      </fileDesc>
+    </teiHeader>
+  <text xml:space="preserve">
+    <pb facs="drl_2_5_ejo.jpg" id="e-1"/>
+    <p id="p-1">
+      <s id="s-1">
+        <tok id="w-1" form="Eu" lemma="eu" upos="PRON" pos="PRON" feats="Case=Nom|Number=Sing|Person=1|PronType=Prs" head="2" deprel="nsubj">Eu</tok>
+        <tok id="w-2" form="gosto" lemma="gostar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin" head="0" deprel="root">gosto</tok>
+        <tok id="w-3" form="de" lemma="de" upos="SCONJ" pos="SCONJ" head="4" deprel="mark">de</tok>
+        <tok id="w-4" form="jogar" lemma="jogar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="2" deprel="xcomp">jogar</tok>
+        <tok id="w-5" nform="videogame" form="video game" lemma="videogame" upos="NOUN" pos="NOUN" feats="Gender=Masc|Number=Sing" head="4" deprel="obj">video game</tok>
+        <tok id="w-7" form="e" lemma="e" upos="CCONJ" pos="CCONJ" head="8" deprel="cc">e</tok>
+        <tok id="w-8" form="de" lemma="de" upos="SCONJ" pos="SCONJ" head="8" deprel="mark">de</tok>
+        <tok id="w-9" nform="andar" form="endar" lemma="andar" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="4" deprel="conj">endar</tok>
+        <tok id="w-10" form="no" lemma="no" upos="ADP" pos="ADP" head="10" deprel="case">no</tok>
+        <tok id="w-11" nform="Facebook" form="Faceboot" lemma="Facebook" upos="PROPN" pos="PROPN" feats="Gender=Masc|Number=Sing" head="8" deprel="obl">Faceboot</tok>
+        <tok id="w-12" form="porque" lemma="porque" upos="SCONJ" pos="SCONJ" head="15" deprel="mark">porque</tok>
+        <tok id="w-13" fform="nonono" form="ilegível" lemma="ilegível" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Sing" head="15" deprel="advcl">ilegível</tok>
+        <tok id="w-14" fform="nonono" form="ilegível" lemma="ilegível" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Sing" head="15" deprel="advcl">ilegível</tok>
+        <tok id="w-15" form="eu" lemma="eu" upos="PRON" pos="PRON" feats="Case=Nom|Number=Sing|Person=1|PronType=Prs" head="15" deprel="nsubj">eu</tok>
+        <tok id="w-16" form="gosto" lemma="gostar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin" head="2" deprel="advcl">gosto</tok>
+        <tok id="w-17" form="muito" lemma="muito" upos="ADV" pos="ADV" head="17" deprel="advmod">muito</tok>
+        <tok id="w-18" form="mais" lemma="mais" upos="ADV" pos="ADV" head="18" deprel="advmod">mais</tok>
+        <tok id="w-19" fform="nonono" form="ilegível" lemma="ilegível" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Sing" head="15" deprel="xcomp">ilegível</tok>
+        <tok id="w-20" form="eu" lemma="eu" upos="PRON" pos="PRON" feats="Case=Nom|Number=Sing|Person=1|PronType=Prs" head="20" deprel="nsubj">eu</tok>
+        <tok id="w-21" form="gosto" lemma="gostar" upos="VERB" pos="VERB" feats="Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin" head="2" deprel="conj">gosto</tok>
+        <tok id="w-22" form="de" lemma="de" upos="SCONJ" pos="SCONJ" head="22" deprel="mark">de</tok>
+        <tok id="w-23" nform="mexer" form="meche" lemma="mexer" upos="VERB" pos="VERB" feats="VerbForm=Inf" head="20" deprel="xcomp">meche</tok>
+        <tok id="w-24" form="no" lemma="no" upos="ADP" pos="ADP" head="24" deprel="case">no</tok>
+        <tok id="w-25" nform="Instagram" form="Instragram" lemma="Instagram" upos="PROPN" pos="PROPN" feats="Gender=Masc|Number=Sing" head="22" deprel="obl">Instragram</tok>
+        <tok id="w-37" form="," lemma="," upos="PUNCT" pos="PUNCT" head="26" deprel="punct">,</tok>
+        <tok id="w-26" fform="nonono" form="ilegível" lemma="ilegível" upos="ADJ" pos="ADJ" feats="Gender=Masc|Number=Sing" head="24" deprel="amod">ilegível</tok>
+        <tok id="w-27" form="." lemma="." upos="PUNCT" pos="PUNCT" head="2" deprel="punct">.</tok>
+        </s>
+      <s id="s-2">
+        <tok id="w-28" form="Twitter" lemma="Twitter" upos="PROPN" pos="PROPN" feats="Gender=Masc|Number=Sing" head="0" deprel="root">Twitter</tok>
+        <tok id="w-29" form="," lemma="," upos="PUNCT" pos="PUNCT" head="3" deprel="punct">,</tok>
+        <tok id="w-30" form="Facebook" lemma="Facebook" upos="PROPN" pos="PROPN" feats="Gender=Masc|Number=Sing" head="1" deprel="conj">Facebook</tok>
+        <tok id="w-31" form="," lemma="," upos="PUNCT" pos="PUNCT" head="1" deprel="punct">,</tok>
+        <tok id="w-32" form="entre" lemma="entre" upos="ADP" pos="ADP" head="7" deprel="case">entre</tok>
+        <tok id="w-33" form="mais" lemma="mais" upos="DET" pos="DET" feats="Gender=Fem|Number=Sing|PronType=Ind" head="7" deprel="det">mais</tok>
+        <tok id="w-34" form="coisa" lemma="coisa" upos="NOUN" pos="NOUN" feats="Gender=Fem|Number=Sing" head="1" deprel="nmod">coisa</tok>
+        <tok id="w-35" form="mais" lemma="mais" upos="ADV" pos="ADV" head="7" deprel="advmod">mais</tok>
+        <tok id="w-36" form="." lemma="." upos="PUNCT" pos="PUNCT" head="1" deprel="punct">.</tok>
+        </s>
+      </p>
+    </text>
+  </TEI>

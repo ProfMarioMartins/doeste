@@ -1,0 +1,19 @@
+DirectoryIndex index.php
+RewriteEngine On
+
+# ==========================
+# NÃO reescrever Scripts (evita loop com symlink)
+# ==========================
+RewriteRule ^Scripts/ - [L]
+
+# NÃO reescrever arquivos físicos existentes
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Regra principal do TEITOK
+RewriteRule ^(.*?)/(.*)$ $1/index.php/$2
+
+SetEnv SMARTY_DIR /home/git/smarty/libs/
+SetEnv TT_SHARED /var/www/html/teitok/shared/
+SetEnv TT_ROOT /home/git/TEITOK/

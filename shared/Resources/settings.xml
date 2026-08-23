@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ttsettings>
+	
+	<!-- Definition of the items to be displayed in the navigation menu -->
+	<menu noshare="1">	
+		<itemlist>
+			<item key="home" display="Início"/>
+			<item key="corplist" display="Corpora"/>
+		</itemlist>
+	</menu>
+
+	<defaults>
+	    <title display="DOESTE"/>
+		<base foldername="shared" javascript="/Scripts/"/>
+	</defaults>
+
+	<xmlreader noshare="1">
+    	<item key="corplist" title="Corpora" max="100"/>
+	</xmlreader>
+	
+</ttsettings>
