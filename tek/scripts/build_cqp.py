@@ -103,15 +103,14 @@ def main() -> None:
     tek_root = Path(__file__).resolve().parents[1]
     if cqp_dir.parent != tek_root:
         raise ValueError(f"Refusing to rebuild outside the TEK root: {cqp_dir}")
-    data_dir = cqp_dir / "data"
+    # The production TEITOK runtime expects both the registry and CWB binary
+    # files directly in the configured registryfolder/cqpfolder (tek/cqp).
+    # The whole directory is derived, so rebuild it atomically from the TEI.
+    if cqp_dir.exists():
+        shutil.rmtree(cqp_dir)
+    cqp_dir.mkdir(parents=True)
     vertical_dir = cqp_dir / "vertical"
-    obsolete_registry_dir = cqp_dir / "registry"
-    if data_dir.exists():
-        shutil.rmtree(data_dir)
-    if obsolete_registry_dir.exists():
-        shutil.rmtree(obsolete_registry_dir)
-    data_dir.mkdir(parents=True)
-    vertical_dir.mkdir(parents=True, exist_ok=True)
+    vertical_dir.mkdir()
     vertical = vertical_dir / "tek.vrt"
     # TEITOK resolves registryfolder="cqp" relative to the corpus root and
     # therefore expects this file at tek/cqp/tek (not cqp/registry/tek).
@@ -119,7 +118,7 @@ def main() -> None:
 
     token_count, sentence_count = write_vertical(args.xml, vertical)
     encode = [
-        "cwb-encode", "-f", str(vertical), "-d", str(data_dir), "-R", str(registry),
+        "cwb-encode", "-f", str(vertical), "-d", str(cqp_dir), "-R", str(registry),
         "-c", "utf8", "-x", "-s",
         "-P", "lemma", "-P", "upos", "-P", "feats", "-P", "head", "-P", "deprel",
         "-S", "text:0+id+year+theme+author+score+language+domain+purpose+corpus+source",

@@ -74,7 +74,14 @@ def main() -> None:
 
     registry = root / "cqp"
     assert (registry / "tek").is_file(), "TEITOK registry must be available at tek/cqp/tek"
+    assert (registry / "word.corpus").is_file(), "CWB binaries must be available directly in tek/cqp"
+    assert not (registry / "data" / "word.corpus").exists(), "obsolete cqp/data architecture detected"
     assert not (registry / "registry" / "tek").exists(), "obsolete nested registry detected"
+    registry_text = (registry / "tek").read_text(encoding="utf-8")
+    expected_home = f"HOME {registry.resolve()}"
+    expected_info = f"INFO {registry.resolve() / '.info'}"
+    assert expected_home in registry_text, f"registry HOME must be {registry.resolve()}"
+    assert expected_info in registry_text, f"registry INFO must be {registry.resolve() / '.info'}"
     queries = {
         'word="sociedade"': cqp_size(registry, '[word="sociedade"]'),
         'word="da"': cqp_size(registry, '[word="da"]'),

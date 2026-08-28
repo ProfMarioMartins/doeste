@@ -40,7 +40,14 @@ gerais do DOESTE.
 
 O registry é gerado em `cqp/tek`, pois o runtime do TEITOK usa
 `registryfolder="cqp"` e resolve esse caminho diretamente a partir da raiz do
-corpus. O diretório `cqp/registry/` não faz parte da arquitetura de publicação.
+corpus. Os binários CWB, como `word.corpus`, também são gravados diretamente
+em `cqp/`; o registry registra esse diretório absoluto em `HOME` e usa
+`cqp/.info` em `INFO`. Os antigos diretórios `cqp/registry/` e `cqp/data/` não
+fazem parte da arquitetura de publicação.
+
+O gerador não cria `xidx.rng`. Esse índice de reconstrução do contexto XML é
+responsabilidade do runtime TEITOK por meio de `tt-cwb-xidx`, executado no
+ambiente de homologação ou produção depois da geração dos artefatos CWB.
 
 ## Runtime TEITOK
 
