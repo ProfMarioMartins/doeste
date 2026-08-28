@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 from collections import Counter
 from pathlib import Path
@@ -75,6 +76,9 @@ def main() -> None:
     registry = root / "cqp"
     assert (registry / "tek").is_file(), "TEITOK registry must be available at tek/cqp/tek"
     assert (registry / "word.corpus").is_file(), "CWB binaries must be available directly in tek/cqp"
+    tt_encoder_available = shutil.which("tt-cwb-encode") is not None
+    if tt_encoder_available:
+        assert (registry / "xidx.rng").is_file(), "tt-cwb-encode build must produce tek/cqp/xidx.rng"
     assert not (registry / "data" / "word.corpus").exists(), "obsolete cqp/data architecture detected"
     assert not (registry / "registry" / "tek").exists(), "obsolete nested registry detected"
     registry_text = (registry / "tek").read_text(encoding="utf-8")
@@ -93,10 +97,20 @@ def main() -> None:
         'author=Sabrina': cqp_size(registry, '[] :: match.text_author = "Sabrina Ayumi Alves Shimizu"'),
     }
     assert all(value > 0 for value in queries.values())
+    assert counts["tokens"] == 60620
+    assert counts["sentences"] == 1891
+    assert queries['word="da"'] == 897
+    assert queries['lemma="sociedade"'] == 228
+    assert queries['upos="VERB"'] == 5565
+    assert queries["year=2024"] == 4720
     assert queries["year=2024"] == queries["theme=2024"]
     print("configuration=valid")
     print("pages=5 valid HTML fragments; no absolute production links")
     print("corpus=" + ", ".join(f"{key}={value}" for key, value in counts.items()))
+    if tt_encoder_available:
+        print("xidx=validated (tt-cwb-encode available)")
+    else:
+        print("xidx=not validated locally (tt-cwb-encode unavailable)")
     for query, result in queries.items():
         print(f"query {query}: {result}")
 

@@ -23,7 +23,7 @@ cada XML. Os índices CQP também são derivados.
 
 O download em massa e a implantação pública não fazem parte desta fase.
 
-## Índice CQP local
+## Índice CQP e XIDX do TEITOK
 
 O corpus CQP principal mantém uma posição por unidade ortográfica. Em
 multiword tokens, os atributos dos `dtok` são agregados com `+`; a coluna
@@ -35,6 +35,24 @@ python3 tek/scripts/build_cqp.py
 python3 tek/tests/test_local_configuration.py
 ```
 
+O build de homologação ou produção requer `tt-cwb-encode`. O comando é
+executado a partir da raiz de `tek/`, onde lê `Resources/settings.xml` e os
+documentos de `xmlfiles/`. Além dos binários CWB, esse encoder gera
+`cqp/xidx.rng` e os índices estruturais usados por `tt-cwb-xidx` e pela
+apresentação KWIC do TEITOK. Em seguida, o script executa `cwb-makeall`.
+
+O encoder CWB padrão não produz XIDX. Em um ambiente local sem
+`tt-cwb-encode`, é possível validar explicitamente o vertical, as contagens e
+as consultas CQP, mas o resultado não constitui um build de produção:
+
+```bash
+python3 tek/scripts/build_cqp.py --local-validation
+python3 tek/tests/test_local_configuration.py
+```
+
+A validação final de publicação, incluindo a existência de `cqp/xidx.rng`,
+deve ser executada no ambiente TEITOK que forneça `tt-cwb-encode`.
+
 Os artefatos de `cqp/` são derivados e permanecem fora do Git pelas regras
 gerais do DOESTE.
 
@@ -44,10 +62,6 @@ corpus. Os binários CWB, como `word.corpus`, também são gravados diretamente
 em `cqp/`; o registry registra esse diretório absoluto em `HOME` e usa
 `cqp/.info` em `INFO`. Os antigos diretórios `cqp/registry/` e `cqp/data/` não
 fazem parte da arquitetura de publicação.
-
-O gerador não cria `xidx.rng`. Esse índice de reconstrução do contexto XML é
-responsabilidade do runtime TEITOK por meio de `tt-cwb-xidx`, executado no
-ambiente de homologação ou produção depois da geração dos artefatos CWB.
 
 ## Runtime TEITOK
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the surface-faithful TEK CQP corpus from annotated publication TEI."""
+"""Build the surface-faithful TEK CQP corpus for TEITOK."""
 
 from __future__ import annotations
 
@@ -89,20 +89,43 @@ def write_vertical(xml_dir: Path, vertical: Path) -> tuple[int, int]:
     return token_count, sentence_count
 
 
-def run(command: list[str]) -> None:
-    subprocess.run(command, check=True)
+def run(command: list[str], cwd: Path | None = None) -> None:
+    subprocess.run(command, check=True, cwd=cwd)
+
+
+def validate_outputs(cqp_dir: Path, require_xidx: bool) -> None:
+    required = [cqp_dir / "tek", cqp_dir / "word.corpus"]
+    if require_xidx:
+        required.append(cqp_dir / "xidx.rng")
+    missing = [str(path) for path in required if not path.is_file()]
+    if missing:
+        raise RuntimeError("CQP build did not produce required files: " + ", ".join(missing))
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--xml", type=Path, default=Path(__file__).resolve().parents[1] / "xmlfiles")
     parser.add_argument("--cqp", type=Path, default=Path(__file__).resolve().parents[1] / "cqp")
+    parser.add_argument(
+        "--local-validation", action="store_true",
+        help="use plain cwb-encode for local CQP checks only; does not produce TEITOK XIDX",
+    )
+    parser.add_argument("--tt-encoder", default="tt-cwb-encode")
     args = parser.parse_args()
 
     cqp_dir = args.cqp.resolve()
     tek_root = Path(__file__).resolve().parents[1]
     if cqp_dir.parent != tek_root:
         raise ValueError(f"Refusing to rebuild outside the TEK root: {cqp_dir}")
+    tt_encoder = None
+    if not args.local_validation:
+        tt_encoder = shutil.which(args.tt_encoder)
+        if tt_encoder is None:
+            raise RuntimeError(
+                f"{args.tt_encoder} is required for a production TEITOK build because "
+                "plain cwb-encode does not generate xidx.rng. Use --local-validation "
+                "only for non-production CQP checks."
+            )
     # The production TEITOK runtime expects both the registry and CWB binary
     # files directly in the configured registryfolder/cqpfolder (tek/cqp).
     # The whole directory is derived, so rebuild it atomically from the TEI.
@@ -116,17 +139,32 @@ def main() -> None:
     # therefore expects this file at tek/cqp/tek (not cqp/registry/tek).
     registry = cqp_dir / "tek"
 
-    token_count, sentence_count = write_vertical(args.xml, vertical)
-    encode = [
-        "cwb-encode", "-f", str(vertical), "-d", str(cqp_dir), "-R", str(registry),
-        "-c", "utf8", "-x", "-s",
-        "-P", "lemma", "-P", "upos", "-P", "feats", "-P", "head", "-P", "deprel",
-        "-S", "text:0+id+year+theme+author+score+language+domain+purpose+corpus+source",
-        "-S", "p:0+id", "-S", "s:0+id",
-    ]
-    run(encode)
+    token_count, sentence_count = write_vertical(args.xml.resolve(), vertical)
+    if args.local_validation:
+        print(
+            "LOCAL VALIDATION ONLY: plain cwb-encode does not generate xidx.rng "
+            "and this output is not suitable for TEITOK production."
+        )
+        encode = [
+            "cwb-encode", "-f", str(vertical), "-d", str(cqp_dir), "-R", str(registry),
+            "-c", "utf8", "-x", "-s",
+            "-P", "lemma", "-P", "upos", "-P", "feats", "-P", "head", "-P", "deprel",
+            "-S", "text:0+id+year+theme+author+score+language+domain+purpose+corpus+source",
+            "-S", "p:0+id", "-S", "s:0+id",
+        ]
+        run(encode)
+    else:
+        # tt-cwb-encode resolves Resources/settings.xml, xmlfiles/ and cqp/
+        # relative to the corpus project, so it must run from the TEK root.
+        run([tt_encoder], cwd=tek_root)
+
     run(["cwb-makeall", "-r", str(cqp_dir), "TEK"])
-    print(f"Built TEK CQP corpus: tokens={token_count}, sentences={sentence_count}, registry={registry}")
+    validate_outputs(cqp_dir, require_xidx=not args.local_validation)
+    mode = "local-validation" if args.local_validation else "teitok-production"
+    print(
+        f"Built TEK CQP corpus: mode={mode}, tokens={token_count}, "
+        f"sentences={sentence_count}, registry={registry}"
+    )
 
 
 if __name__ == "__main__":
