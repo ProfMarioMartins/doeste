@@ -72,7 +72,9 @@ def main() -> None:
             result = tree.xpath(xpath)
             assert len(result) == 1, f"filter {filter_node.get('key')} failed for {path.name}: {xpath}"
 
-    registry = root / "cqp" / "registry"
+    registry = root / "cqp"
+    assert (registry / "tek").is_file(), "TEITOK registry must be available at tek/cqp/tek"
+    assert not (registry / "registry" / "tek").exists(), "obsolete nested registry detected"
     queries = {
         'word="sociedade"': cqp_size(registry, '[word="sociedade"]'),
         'word="da"': cqp_size(registry, '[word="da"]'),

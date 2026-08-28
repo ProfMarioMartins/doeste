@@ -38,6 +38,10 @@ python3 tek/tests/test_local_configuration.py
 Os artefatos de `cqp/` são derivados e permanecem fora do Git pelas regras
 gerais do DOESTE.
 
+O registry é gerado em `cqp/tek`, pois o runtime do TEITOK usa
+`registryfolder="cqp"` e resolve esse caminho diretamente a partir da raiz do
+corpus. O diretório `cqp/registry/` não faz parte da arquitetura de publicação.
+
 ## Runtime TEITOK
 
 O TEITOK continua sendo uma dependência externa. Para abrir a interface, o

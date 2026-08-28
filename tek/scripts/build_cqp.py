@@ -104,15 +104,18 @@ def main() -> None:
     if cqp_dir.parent != tek_root:
         raise ValueError(f"Refusing to rebuild outside the TEK root: {cqp_dir}")
     data_dir = cqp_dir / "data"
-    registry_dir = cqp_dir / "registry"
     vertical_dir = cqp_dir / "vertical"
+    obsolete_registry_dir = cqp_dir / "registry"
     if data_dir.exists():
         shutil.rmtree(data_dir)
+    if obsolete_registry_dir.exists():
+        shutil.rmtree(obsolete_registry_dir)
     data_dir.mkdir(parents=True)
-    registry_dir.mkdir(parents=True, exist_ok=True)
     vertical_dir.mkdir(parents=True, exist_ok=True)
     vertical = vertical_dir / "tek.vrt"
-    registry = registry_dir / "tek"
+    # TEITOK resolves registryfolder="cqp" relative to the corpus root and
+    # therefore expects this file at tek/cqp/tek (not cqp/registry/tek).
+    registry = cqp_dir / "tek"
 
     token_count, sentence_count = write_vertical(args.xml, vertical)
     encode = [
@@ -123,7 +126,7 @@ def main() -> None:
         "-S", "p:0+id", "-S", "s:0+id",
     ]
     run(encode)
-    run(["cwb-makeall", "-r", str(registry_dir), "TEK"])
+    run(["cwb-makeall", "-r", str(cqp_dir), "TEK"])
     print(f"Built TEK CQP corpus: tokens={token_count}, sentences={sentence_count}, registry={registry}")
 
 
