@@ -1,0 +1,49 @@
+<h1>Metodologia do Corpus TEK</h1>
+
+<p>O <strong>Corpus TEK &ndash; Reda&ccedil;&otilde;es Nota Mil</strong> integra o <strong>DOESTE &ndash; Reposit&oacute;rio de Escrita para Fins Investigativos</strong>. Esta p&aacute;gina descreve a constitui&ccedil;&atilde;o documental e o processamento t&eacute;cnico do corpus.</p>
+
+<h2>1. Natureza e composi&ccedil;&atilde;o</h2>
+
+<p>O TEK &eacute; um corpus especializado de 128 reda&ccedil;&otilde;es do Exame Nacional do Ensino M&eacute;dio que receberam nota 1000. O conjunto cobre edi&ccedil;&otilde;es de 2012 a 2024 e re&uacute;ne textos em portugu&ecirc;s brasileiro, de dom&iacute;nio Escolar e prop&oacute;sito comunicativo Argumentar.</p>
+
+<p>A inclus&atilde;o no conjunto depende da documenta&ccedil;&atilde;o da reda&ccedil;&atilde;o como texto nota mil na fonte utilizada. O corpus n&atilde;o constitui uma amostra aleat&oacute;ria de participantes do ENEM e n&atilde;o representa, por si s&oacute;, todas as reda&ccedil;&otilde;es produzidas ou avaliadas no per&iacute;odo.</p>
+
+<h2>2. Proced&ecirc;ncia, autoria e temas</h2>
+
+<p>Os textos foram reunidos a partir de materiais p&uacute;blicos que reproduzem reda&ccedil;&otilde;es nota mil. Os documentos preservam os nomes dos autores tal como registrados nas fontes consultadas. A autoria da reda&ccedil;&atilde;o &eacute; mantida separada do t&iacute;tulo documental criado para organiza&ccedil;&atilde;o do corpus.</p>
+
+<p>A proveni&ecirc;ncia atualmente documentada inclui uma p&aacute;gina agregadora do G1 para os 118 documentos do conjunto inicial e material institucional do INEP para os dez textos de 2024. A URL agregadora n&atilde;o &eacute; tratada como URL individual de cada reda&ccedil;&atilde;o. Quando a data de publica&ccedil;&atilde;o ou de acesso n&atilde;o estava documentada, ela n&atilde;o foi criada por infer&ecirc;ncia.</p>
+
+<p>Os temas foram harmonizados segundo a formula&ccedil;&atilde;o oficial identificada em materiais do INEP. O ano registrado corresponde ao ano do exame, e n&atilde;o &agrave; data de publica&ccedil;&atilde;o da fonte.</p>
+
+<h2>3. Metadados</h2>
+
+<p>Os metadados documentais incluem identificador do documento, identificador do corpus, l&iacute;ngua, dom&iacute;nio, prop&oacute;sito comunicativo, autoria, exame, ano do exame, tema oficial, nota e proveni&ecirc;ncia. Na interface de pesquisa, ano, tema e autor constituem os filtros priorit&aacute;rios.</p>
+
+<h2>4. Representa&ccedil;&atilde;o TEI/XML</h2>
+
+<p>A arquitetura distingue duas camadas. Os arquivos de fonte can&ocirc;nica conservam o texto e os metadados estabilizados. A partir deles, um pipeline reproduz&iacute;vel gera os documentos anotados destinados &agrave; publica&ccedil;&atilde;o. Os documentos s&atilde;o estruturados em cabe&ccedil;alho TEI, texto, par&aacute;grafos e, na camada derivada, senten&ccedil;as e tokens.</p>
+
+<p>Essa separa&ccedil;&atilde;o permite refazer a anota&ccedil;&atilde;o sem transformar o texto can&ocirc;nico. Os &iacute;ndices de busca tamb&eacute;m s&atilde;o artefatos derivados.</p>
+
+<h2>5. Anota&ccedil;&atilde;o lingu&iacute;stica</h2>
+
+<p>A anota&ccedil;&atilde;o foi produzida automaticamente com o UDPipe e o modelo fixado <code>portuguese-bosque-ud-2.17-251125</code>. O processamento acrescenta segmenta&ccedil;&atilde;o em senten&ccedil;as, lemas, categorias UPOS, tra&ccedil;os morfol&oacute;gicos quando atribu&iacute;dos pelo modelo e rela&ccedil;&otilde;es de depend&ecirc;ncia sint&aacute;tica.</p>
+
+<p>N&atilde;o foi realizada revis&atilde;o humana sistem&aacute;tica da anota&ccedil;&atilde;o autom&aacute;tica. Por isso, lemas, categorias e an&aacute;lises sint&aacute;ticas devem ser interpretados como resultados do modelo empregado, sujeitos a erros.</p>
+
+<h2>6. Forma superficial e multiword tokens</h2>
+
+<p>O elemento <code>&lt;tok&gt;</code> representa a unidade ortogr&aacute;fica vis&iacute;vel. Quando o UDPipe analisa uma contra&ccedil;&atilde;o em mais de um componente gramatical, esses componentes s&atilde;o registrados em elementos <code>&lt;dtok&gt;</code> internos. Assim, a forma superficial <em>da</em> permanece <em>da</em>, enquanto as an&aacute;lises de <em>de</em> e <em>a</em> continuam disponíveis.</p>
+
+<p>A integridade foi testada automaticamente por documento e por par&aacute;grafo. Os 128 documentos anotados reproduzem integralmente os respectivos textos-fonte segundo compara&ccedil;&atilde;o NFC exata, incluindo caracteres, acentua&ccedil;&atilde;o, capitaliza&ccedil;&atilde;o, pontua&ccedil;&atilde;o e espa&ccedil;amento.</p>
+
+<h2>7. Consulta e limita&ccedil;&otilde;es</h2>
+
+<p>A consulta CQP principal usa uma posi&ccedil;&atilde;o por unidade ortogr&aacute;fica, preservando a leitura comum das reda&ccedil;&otilde;es. Em multiword tokens, os atributos dos componentes internos s&atilde;o agregados com <code>+</code> na posi&ccedil;&atilde;o superficial. Essa decis&atilde;o evita expandir contra&ccedil;&otilde;es na concord&acirc;ncia, mas consultas voltadas especificamente a componentes internos exigem considerar essa representa&ccedil;&atilde;o ou consultar o TEI/XML.</p>
+
+<p>Al&eacute;m das limita&ccedil;&otilde;es da anota&ccedil;&atilde;o autom&aacute;tica, a documenta&ccedil;&atilde;o de proveni&ecirc;ncia n&atilde;o possui a mesma granularidade em todos os documentos: a URL individual de cada reda&ccedil;&atilde;o e as datas de publica&ccedil;&atilde;o e recupera&ccedil;&atilde;o nem sempre est&atilde;o registradas.</p>
+
+<h2>8. Atualiza&ccedil;&atilde;o</h2>
+
+<p>O TEI-fonte &eacute; a camada can&ocirc;nica do corpus. Corre&ccedil;&otilde;es textuais ou de metadados devem ser realizadas nessa camada e seguidas pela regenera&ccedil;&atilde;o da anota&ccedil;&atilde;o e dos &iacute;ndices derivados. A informa&ccedil;&atilde;o p&uacute;blica de atualiza&ccedil;&atilde;o dever&aacute; ser gerada durante a implanta&ccedil;&atilde;o a partir do hist&oacute;rico Git dos dados, conforme a pol&iacute;tica do DOESTE.</p>

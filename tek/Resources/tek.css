@@ -1,0 +1,43 @@
+/* Identidade visual específica do Corpus TEK. */
+
+:root {
+  --tek-primary: #7a4b16;
+  --tek-primary-dark: #59350f;
+  --tek-accent: #315f86;
+  --tek-border: #e2c99f;
+}
+
+body .sidebar {
+  background: var(--tek-primary-dark) !important;
+}
+
+body .brand-title,
+body .brand-subtitle,
+body .nav a,
+body .nav li,
+body .nav li a {
+  color: #fff !important;
+}
+
+body .brand-divider {
+  border-color: var(--tek-border) !important;
+}
+
+body .nav a:hover,
+body .content a:hover {
+  color: var(--tek-border) !important;
+}
+
+body .content h1,
+body .content h2,
+body .content h3 {
+  color: var(--tek-primary-dark) !important;
+}
+
+body .content h1 {
+  border-bottom-color: var(--tek-border) !important;
+}
+
+body .content a {
+  color: var(--tek-accent) !important;
+}

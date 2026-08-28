@@ -1,0 +1,16 @@
+<h2>Como pesquisar no Corpus TEK</h2>
+
+<p>A pesquisa usa CQP para localizar formas ortogr&aacute;ficas e atributos lingu&iacute;sticos. A forma visível permanece uma unidade ortográfica, inclusive em contrações.</p>
+
+<h3>Exemplos</h3>
+
+<ul>
+  <li><code>[word="sociedade"]</code> &mdash; forma ortográfica exata;</li>
+  <li><code>[word="da"]</code> &mdash; contração preservada na superfície;</li>
+  <li><code>[lemma="sociedade"]</code> &mdash; lema;</li>
+  <li><code>[upos="VERB"]</code> &mdash; classe UPOS.</li>
+</ul>
+
+<p>Os filtros documentais permitem restringir a pesquisa por ano do ENEM, tema oficial e autor. Outros campos disponíveis incluem nota, língua, domínio, propósito comunicativo, corpus e fonte documentada.</p>
+
+<p>Em contrações analisadas como multiword tokens, os atributos dos componentes são agregados com <code>+</code>. Por exemplo, a forma <em>da</em> pode apresentar lema <code>de+o</code> e UPOS <code>ADP+DET</code>. Para examinar todos os componentes e suas relações individualmente, consulte a representação TEI/XML.</p>
