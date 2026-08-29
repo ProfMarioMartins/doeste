@@ -1,16 +1,50 @@
-<h2>Como pesquisar no Corpus TEK</h2>
+<h1>Como pesquisar no Corpus TEK</h1>
 
-<p>A pesquisa usa CQP para localizar formas ortogr&aacute;ficas e atributos lingu&iacute;sticos. A forma visível permanece uma unidade ortográfica, inclusive em contrações.</p>
+<p>O Corpus TEK permite realizar buscas lingu&iacute;sticas por meio da linguagem CQP (Corpus Query Language), que possibilita localizar palavras, padr&otilde;es gramaticais e estruturas recorrentes nos textos.</p>
 
-<h3>Exemplos</h3>
+<p>As buscas s&atilde;o feitas na caixa de pesquisa, onde &eacute; poss&iacute;vel digitar diretamente uma express&atilde;o CQP. Tamb&eacute;m &eacute; poss&iacute;vel utilizar a Constru&ccedil;&atilde;o de pesquisa para formular buscas sem escrever manualmente toda a express&atilde;o.</p>
+
+<h2>Exemplos de busca</h2>
+
+<h3>Buscar uma palavra espec&iacute;fica</h3>
+
+<p><code>[lemma="casa"]</code></p>
+
+<p>Retorna as ocorr&ecirc;ncias cujo lema &eacute; <em>casa</em>, incluindo formas flexionadas presentes no corpus, como <em>casa</em> e <em>casas</em>.</p>
+
+<h3>Buscar padr&otilde;es gramaticais</h3>
+
+<p><code>[lemma="casa"] [upos="ADJ"]</code></p>
+
+<p>Retorna ocorr&ecirc;ncias de palavras com lema <em>casa</em> seguidas de um adjetivo.</p>
+
+<h3>Buscar uma classe gramatical</h3>
+
+<p><code>[upos="VERB"]</code></p>
+
+<p>Retorna os verbos anotados no corpus.</p>
+
+<h2>Usando a Constru&ccedil;&atilde;o de pesquisa</h2>
+
+<p>Se o usu&aacute;rio n&atilde;o estiver familiarizado com a linguagem CQP, poder&aacute; utilizar o construtor de consultas:</p>
+
+<ol>
+  <li>abrir a Constru&ccedil;&atilde;o de pesquisa;</li>
+  <li>definir os crit&eacute;rios desejados, como Forma, Lema e Classe gramatical;</li>
+  <li>combinar, quando necess&aacute;rio, esses crit&eacute;rios com os filtros documentais;</li>
+  <li>executar a pesquisa.</li>
+</ol>
+
+<h2>Buscar documentos</h2>
+
+<p>A Busca por documento permite restringir os resultados por ID do Texto, Ano do ENEM, Tema oficial, Autor(a), L&iacute;ngua, Dom&iacute;nio e Prop&oacute;sito. Esses filtros podem ser usados isoladamente ou em combina&ccedil;&atilde;o com os crit&eacute;rios lingu&iacute;sticos.</p>
+
+<h2>Sobre a linguagem de busca</h2>
 
 <ul>
-  <li><code>[word="sociedade"]</code> &mdash; forma ortográfica exata;</li>
-  <li><code>[word="da"]</code> &mdash; contração preservada na superfície;</li>
-  <li><code>[lemma="sociedade"]</code> &mdash; lema;</li>
-  <li><code>[upos="VERB"]</code> &mdash; classe UPOS.</li>
+  <li><code>word</code> &rarr; forma efetivamente presente no texto;</li>
+  <li><code>lemma</code> &rarr; lema ou forma lexical de refer&ecirc;ncia;</li>
+  <li><code>upos</code> &rarr; classe gramatical.</li>
 </ul>
 
-<p>Os filtros documentais permitem restringir a pesquisa por ano do ENEM, tema oficial e autor. Outros campos disponíveis incluem nota, língua, domínio, propósito comunicativo, corpus e fonte documentada.</p>
-
-<p>Em contrações analisadas como multiword tokens, os atributos dos componentes são agregados com <code>+</code>. Por exemplo, a forma <em>da</em> pode apresentar lema <code>de+o</code> e UPOS <code>ADP+DET</code>. Para examinar todos os componentes e suas relações individualmente, consulte a representação TEI/XML.</p>
+<p>Em contra&ccedil;&otilde;es analisadas como multiword tokens, os atributos dos componentes s&atilde;o agregados com <code>+</code>. Por exemplo, a forma <em>da</em> pode apresentar lema <code>de+o</code> e UPOS <code>ADP+DET</code>. Para examinar todos os componentes e suas rela&ccedil;&otilde;es individualmente, consulte a representa&ccedil;&atilde;o TEI/XML.</p>

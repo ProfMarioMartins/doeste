@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/Scripts/teitok.css" media="screen">
-<link rel="stylesheet" href="/shared/Resources/doeste.css?v=3">
+<link rel="stylesheet" href="/shared/Resources/doeste.css?v=5">
 
 </head>
 

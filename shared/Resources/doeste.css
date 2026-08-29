@@ -59,6 +59,15 @@ body {
 /* IDENTIDADE INSTITUCIONAL                              */
 /* ===================================================== */
 
+.layout .sidebar .institution-logo {
+  display: block;
+  width: 100%;
+  max-width: 210px;
+  height: auto;
+  margin: 0 auto 18px;
+  object-fit: contain;
+}
+
 .layout .sidebar .brand-title {
   text-align: center;
   font-size: 30px;
@@ -92,6 +101,22 @@ body {
 
 .layout .sidebar .nav {
   width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Crédito técnico acrescentado pelo runtime TEITOK ao final do menu. */
+.layout .sidebar #powby {
+  align-self: flex-end;
+  margin-top: auto !important;
+  max-width: 190px;
+  font-size: 11px !important;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: right;
+  opacity: 0.65 !important;
 }
 
 .layout .sidebar .nav a {
@@ -210,6 +235,13 @@ body {
 
 #mtxt s {
   text-decoration: none !important;
+}
+
+.corpus-visit-counter {
+  margin: 2rem 0 0;
+  color: #68707c;
+  font-size: 0.82rem;
+  text-align: right;
 }
 
 

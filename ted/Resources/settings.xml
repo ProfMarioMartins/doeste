@@ -128,11 +128,6 @@
               type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='sourceDesc']/*[local-name()='bibl']/*[local-name()='idno'][@type='internal']"/>
 
-        <item key="student"
-              display="Participante"
-              type="select"
-              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='particDesc']/*[local-name()='listPerson']/*[local-name()='person']/*[local-name()='persName']"/>
-
         <item key="age"
               display="Idade"
               type="range"

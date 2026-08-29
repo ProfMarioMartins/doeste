@@ -9,13 +9,14 @@
 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/Scripts/teitok.css" media="screen">
-<link rel="stylesheet" href="/shared/Resources/doeste.css?v=3">
+<link rel="stylesheet" href="/shared/Resources/doeste.css?v=5">
 <link rel="stylesheet" href="/tek/Resources/tek.css?v=1">
 </head>
 
 <body>
 <div class="layout">
 <aside class="sidebar" role="navigation">
+    <img class="institution-logo" src="/shared/Resources/logo_ufersa_doeste.png" alt="Universidade Federal Rural do Semi-&Aacute;rido (UFERSA)">
     <div class="brand-title">CORPUS TEK</div>
     <div class="brand-subtitle">DOESTE</div>
     <hr class="brand-divider">

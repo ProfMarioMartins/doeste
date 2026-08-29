@@ -41,3 +41,113 @@ body .content h1 {
 body .content a {
   color: var(--tek-accent) !important;
 }
+
+/* Pesquisa TEITOK: conter tabelas e controles na área útil do corpus. */
+body .layout .content {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+
+body #cqp,
+body #qbframe,
+body #querybuilder {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+body #cqp > table,
+body #querybuilder > table.qbt {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+body #cqp > table > tbody > tr > td:first-child {
+  width: 8rem;
+}
+
+body #cqp > table > tbody > tr > td:last-child {
+  width: 15rem;
+}
+
+body #querybuilder > table.qbt > tbody > tr > td {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 50%;
+}
+
+body #qbframe table.qbt {
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+body #qbframe table.qbt th {
+  overflow-wrap: anywhere;
+  width: 36%;
+}
+
+body #qbframe table.qbt td {
+  min-width: 0;
+  width: 64%;
+}
+
+body #qbframe select,
+body #qbframe input[type="text"],
+body #qbframe input:not([type]),
+body #cqlbox,
+body #cqlfld,
+body #cqlcode {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+body #cqlcode {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1200px) {
+  body #querybuilder > table.qbt,
+  body #querybuilder > table.qbt > tbody,
+  body #querybuilder > table.qbt > tbody > tr {
+    display: block;
+    width: 100%;
+  }
+
+  body #querybuilder > table.qbt > tbody > tr > td {
+    display: block;
+    width: 100%;
+  }
+
+  body #querybuilder > table.qbt > tbody > tr > td:first-child {
+    border-right: 0 !important;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  body #cqp > table,
+  body #cqp > table > tbody,
+  body #cqp > table > tbody > tr,
+  body #cqp > table > tbody > tr > td {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  body #qbframe table.qbt th,
+  body #qbframe table.qbt td {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  body #qbframe table.qbt th {
+    padding-bottom: 3px;
+  }
+}

@@ -14,7 +14,6 @@
       <item key="home" display="Início"/>
       <item key="cqp" display="Pesquisa"/>
       <item key="metodo" display="Metodologia"/>
-      <item key="fontes" display="Fontes e atribuição"/>
     </itemlist>
   </menu>
 
@@ -25,14 +24,15 @@
     transformar uma posição superficial em duas posições CQP.
   -->
   <cqp corpus="tek"
+       toktype="t"
        searchfolder="xmlfiles"
        tokxpath="//*[local-name()='tok']"
        wordpath="text()"
        cqpfolder="cqp" toktype="t">
     <pattributes>
-      <item key="word" display="Forma ortográfica"/>
+      <item key="word" display="Forma"/>
       <item key="lemma" display="Lema"/>
-      <item key="upos" display="Classe gramatical (UPOS)" type="select">
+      <item key="upos" display="Classe gramatical" type="select">
         <options>
           <item key="ADJ" display="Adjetivo"/>
           <item key="ADP" display="Preposição"/>
@@ -59,24 +59,20 @@
 
     <sattributes>
       <item level="text" key="text" display="Busca por documento">
-        <item key="year" display="Ano do ENEM" type="range" var="number"
+        <item key="id" display="ID do Texto" type="select"
+              xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='sourceDesc']/*[local-name()='bibl'][1]/*[local-name()='idno'][@type='internal']"/>
+        <item key="year" display="Ano do ENEM" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='settingDesc']/*[local-name()='setting']/*[local-name()='date'][@type='exam']/@when"/>
         <item key="theme" display="Tema oficial" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textClass']/*[local-name()='keywords'][@type='official_prompt']/*[local-name()='term']"/>
         <item key="author" display="Autor(a)" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='titleStmt']/*[local-name()='author']"/>
-        <item key="score" display="Nota" type="select"
-              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textClass']/*[local-name()='keywords'][@type='score']/*[local-name()='term']"/>
         <item key="language" display="Língua" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='langUsage']/*[local-name()='language']/@ident"/>
         <item key="domain" display="Domínio" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textClass']/*[local-name()='keywords'][@type='domain']/*[local-name()='term']"/>
-        <item key="purpose" display="Propósito comunicativo" type="select"
+        <item key="purpose" display="Propósito" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textDesc']/*[local-name()='purpose']"/>
-        <item key="corpus" display="Corpus" type="select"
-              xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='textClass']/*[local-name()='keywords'][@type='corpus']/*[local-name()='term']"/>
-        <item key="source" display="Fonte documentada" type="select"
-              xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='sourceDesc']/*[local-name()='bibl'][1]/*[local-name()='publisher']"/>
       </item>
       <item key="p" level="p" attributes="id"/>
       <item key="s" level="s" attributes="id"/>
@@ -105,7 +101,7 @@
     <item key="score" xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='score']/term" display="Nota" show="short" add="1"/>
     <item key="language" xpath="/TEI/teiHeader/profileDesc/langUsage/language/@ident" display="Língua" show="short" add="1"/>
     <item key="domain" xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='domain']/term" display="Domínio" show="short" add="1"/>
-    <item key="purpose" xpath="/TEI/teiHeader/profileDesc/textDesc/purpose" display="Propósito comunicativo" show="short" add="1"/>
+    <item key="purpose" xpath="/TEI/teiHeader/profileDesc/textDesc/purpose" display="Propósito" show="short" add="1"/>
     <item key="corpus" xpath="/TEI/teiHeader/profileDesc/textClass/keywords[@type='corpus']/term" display="Corpus" show="short" add="1"/>
     <item key="publisher" xpath="/TEI/teiHeader/fileDesc/sourceDesc/bibl[1]/publisher" display="Publicador da fonte consultada" show="short" add="1"/>
     <item key="source_url" xpath="/TEI/teiHeader/fileDesc/sourceDesc/bibl[1]/ref/@target" display="URL da fonte" show="short" add="1"/>
@@ -117,7 +113,7 @@
            wordpath="text()">
     <pattributes>
       <tags>
-        <item key="word" display="Forma ortográfica"/>
+        <item key="word" display="Forma"/>
         <item key="form" display="Forma superficial"/>
         <item key="lemma" display="Lema"/>
         <item key="upos" display="Classe"/>

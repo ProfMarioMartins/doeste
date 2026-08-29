@@ -14,7 +14,9 @@ from lxml import etree, html
 TEI = "http://www.tei-c.org/ns/1.0"
 NS = {"tei": TEI}
 EXPECTED_PATTRS = {"word", "lemma", "upos", "feats", "head", "deprel"}
-EXPECTED_FILTERS = {"year", "theme", "author", "score", "language", "domain", "purpose", "corpus", "source"}
+EXPECTED_FILTERS = {"id", "year", "theme", "author", "language", "domain", "purpose"}
+HIDDEN_FILTERS = {"score", "corpus", "source", "name"}
+EXPECTED_YEARS = {"2012", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"}
 
 
 def cqp_size(registry: Path, expression: str) -> int:
@@ -40,27 +42,71 @@ def main() -> None:
     filters = set(settings.xpath("//cqp/sattributes/item[@level='text']/item/@key"))
     filter_nodes = settings.xpath("//cqp/sattributes/item[@level='text']/item")
     assert EXPECTED_PATTRS <= pattrs
-    assert EXPECTED_FILTERS <= filters
+    assert filters == EXPECTED_FILTERS
+    assert filters.isdisjoint(HIDDEN_FILTERS)
     assert settings.xpath("string(//cqp/@tokxpath)") == "//*[local-name()='tok']"
     assert settings.xpath("string(//cqp/@wordpath)") == "text()"
+    assert settings.xpath("string(//cqp/@toktype)") == "t"
+    assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='id']/@display)") == "ID do Texto"
+    assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='year']/@type)") == "select"
 
     pages = sorted((root / "Pages").glob("*.html"))
-    assert {p.name for p in pages} == {"home.html", "metodo-pt.html", "fontes-pt.html", "cqptext.html", "querybuilderhelp.html"}
+    assert {p.name for p in pages} == {"home.html", "metodo-pt.html", "cqptext.html", "querybuilderhelp.html"}
     for page in pages:
         fragment = html.fragment_fromstring(page.read_text(encoding="utf-8"), create_parent="main")
         assert fragment.text_content().strip(), f"empty page: {page.name}"
         for href in fragment.xpath(".//a/@href"):
             assert not href.startswith("https://doeste.ufersa.edu.br"), f"production-only link in {page.name}: {href}"
+            assert "action=fontes" not in href, f"obsolete sources link in {page.name}: {href}"
+
+    search_help = html.fragment_fromstring(
+        (root / "Pages" / "cqptext.html").read_text(encoding="utf-8"), create_parent="main"
+    ).text_content()
+    for label in ("Forma", "Lema", "Classe gramatical", "ID do Texto", "Ano do ENEM", "Tema oficial", "Autor(a)", "Língua", "Domínio", "Propósito"):
+        assert label in search_help, f"missing public search guidance: {label}"
+    for hidden_label in ("Fonte documentada", "Propósito comunicativo", "Forma ortográfica", "Classe gramatical (UPOS)"):
+        assert hidden_label not in search_help, f"obsolete public search label: {hidden_label}"
+
+    home = html.fragment_fromstring(
+        (root / "Pages" / "home.html").read_text(encoding="utf-8"), create_parent="main"
+    )
+    home_text = " ".join(home.text_content().split())
+    home_headings = [" ".join(value.split()) for value in home.xpath(".//h1/text() | .//h2/text()")]
+    assert home_headings == [
+        "Corpus TEK – Redações Nota Mil",
+        "Composição",
+        "Estrutura e anotação",
+        "Consultar o corpus",
+        "Metadados",
+        "Aspectos éticos e acesso",
+        "Atualização dos dados",
+    ]
+    for statement in ("128 redações", "2012 e 2024", "sem textos da edição de 2013", "português brasileiro", "nota 1000"):
+        assert statement in home_text, f"missing public corpus statement: {statement}"
+    expected_home_links = {
+        "index.php?action=files",
+        "index.php?action=stats",
+        "index.php?action=cqp&act=distribute",
+    }
+    assert set(home.xpath(".//a/@href")) == expected_home_links
+    assert "23 de agosto de 2026" not in home_text
+    assert "Última atualização dos dados:" not in home_text, "do not publish a date before manifest integration"
+
+    tek_css = (root / "Resources" / "tek.css").read_text(encoding="utf-8")
+    for responsive_rule in ("min-width: 0", "max-width: 100%", "table-layout: fixed", "@media (max-width: 1200px)", "@media (max-width: 600px)"):
+        assert responsive_rule in tek_css, f"missing responsive search rule: {responsive_rule}"
 
     xml_files = sorted((root / "xmlfiles").glob("TEK_*.xml"))
     assert len(xml_files) == 128
     counts: Counter[str] = Counter()
+    years: set[str] = set()
     for path in xml_files:
         tree = etree.parse(str(path))
         counts["documents"] += 1
         counts["paragraphs"] += len(tree.xpath("//tei:body/tei:p", namespaces=NS))
         counts["sentences"] += len(tree.xpath("//tei:body//tei:s", namespaces=NS))
         counts["tokens"] += len(tree.xpath("//tei:body//tei:tok", namespaces=NS))
+        years.update(tree.xpath("//tei:setting/tei:date[@type='exam']/@when", namespaces=NS))
         for xpath in (
             "//tei:titleStmt/tei:author",
             "//tei:setting/tei:date[@type='exam']/@when",
@@ -72,6 +118,7 @@ def main() -> None:
             xpath = filter_node.get("xpath")
             result = tree.xpath(xpath)
             assert len(result) == 1, f"filter {filter_node.get('key')} failed for {path.name}: {xpath}"
+    assert years == EXPECTED_YEARS
 
     registry = root / "cqp"
     assert (registry / "tek").is_file(), "TEITOK registry must be available at tek/cqp/tek"
@@ -105,7 +152,7 @@ def main() -> None:
     assert queries["year=2024"] == 4720
     assert queries["year=2024"] == queries["theme=2024"]
     print("configuration=valid")
-    print("pages=5 valid HTML fragments; no absolute production links")
+    print("pages=4 valid HTML fragments; no absolute production links")
     print("corpus=" + ", ".join(f"{key}={value}" for key, value in counts.items()))
     if tt_encoder_available:
         print("xidx=validated (tt-cwb-encode available)")
