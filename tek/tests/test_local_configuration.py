@@ -79,7 +79,6 @@ def main() -> None:
         "Consultar o corpus",
         "Metadados",
         "Aspectos éticos e acesso",
-        "Atualização dos dados",
     ]
     for statement in ("128 redações", "2012 e 2024", "sem textos da edição de 2013", "português brasileiro", "nota 1000"):
         assert statement in home_text, f"missing public corpus statement: {statement}"
