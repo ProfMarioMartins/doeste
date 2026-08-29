@@ -292,3 +292,8 @@ body {
     overflow-x: auto;
   }
 }
+
+/* Oculta o separador automático inserido pelo TEITOK antes do crédito técnico. */
+.layout .sidebar .nav > hr {
+  display: none;
+}
