@@ -23,7 +23,7 @@
     O gerador tek/scripts/build_cqp.py agrega seus atributos com "+" sem
     transformar uma posição superficial em duas posições CQP.
   -->
-  <cqp corpus="tek"
+  <cqp wordfld="pform" corpus="tek"
        toktype="t"
        searchfolder="xmlfiles"
        tokxpath="//*[local-name()='tok']"
@@ -59,7 +59,7 @@
 
     <sattributes>
       <item level="text" key="text" display="Busca por documento">
-        <item key="id" display="ID do Texto" type="select"
+        <item key="docid" display="ID do Texto" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='fileDesc']/*[local-name()='sourceDesc']/*[local-name()='bibl'][1]/*[local-name()='idno'][@type='internal']"/>
         <item key="year" display="Ano do ENEM" type="select"
               xpath="//*[local-name()='teiHeader']/*[local-name()='profileDesc']/*[local-name()='settingDesc']/*[local-name()='setting']/*[local-name()='date'][@type='exam']/@when"/>
