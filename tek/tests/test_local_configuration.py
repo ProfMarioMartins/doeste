@@ -191,20 +191,23 @@ def main() -> None:
         'author=Sabrina': cqp_size(registry, '[] :: match.text_author = "Sabrina Ayumi Alves Shimizu"'),
     }
     assert all(value > 0 for value in queries.values())
-    assert counts["tokens"] == 60620
-    assert counts["sentences"] == 1891
+    assert counts["tokens"] == 60622
+    assert counts["sentences"] == 1871
     assert queries['word="da"'] == 897
-    assert queries['lemma="sociedade"'] == 228
+    assert queries['word="sociedade"'] == 218
+    assert queries['lemma="sociedade"'] == 227
+    assert queries['lemma="valorizar"'] == 22
     assert queries['upos="VERB"'] == 5565
     assert queries["year=2024"] == 4720
     assert queries["year=2024"] == queries["theme=2024"]
+    assert queries["author=Sabrina"] == 524
     lexdecode = shutil.which("cwb-lexdecode")
     if lexdecode:
         lexicon = subprocess.run(
             [lexdecode, "-r", str(registry), "-P", "word", "TEK"],
             text=True, capture_output=True, check=True,
         ).stdout.splitlines()
-        assert len(lexicon) == 7532
+        assert len(lexicon) == 7531
     print("configuration=valid")
     print("pages=4 valid HTML fragments; no absolute production links")
     print("corpus=" + ", ".join(f"{key}={value}" for key, value in counts.items()))
@@ -215,7 +218,7 @@ def main() -> None:
     for query, result in queries.items():
         print(f"query {query}: {result}")
     if lexdecode:
-        print("word-types=7532")
+        print("word-types=7531")
 
 
 if __name__ == "__main__":
