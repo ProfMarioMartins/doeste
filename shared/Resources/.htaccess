@@ -1,7 +1,5 @@
-deny from all
+Require all denied
 
-<Files *.css>
-    Order Allow,Deny
-    Allow from all
-</Files>
-
+<FilesMatch "\.(css|png)$">
+    Require all granted
+</FilesMatch>
