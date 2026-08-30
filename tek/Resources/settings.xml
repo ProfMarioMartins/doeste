@@ -78,6 +78,8 @@
       <item key="s" level="s" attributes="id"/>
     </sattributes>
 
+    <distribute typefld="word"/>
+
     <stats>
       <item var="tokcnt" cql="[]" type="size" display="Total de formas ortográficas"/>
       <item var="sentcnt" cql="&lt;s&gt; []" type="size" display="Total de sentenças"/>
