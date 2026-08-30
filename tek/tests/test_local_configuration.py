@@ -47,8 +47,23 @@ def main() -> None:
     assert settings.xpath("string(//cqp/@tokxpath)") == "//*[local-name()='tok']"
     assert settings.xpath("string(//cqp/@wordpath)") == "text()"
     assert settings.xpath("string(//cqp/@toktype)") == "t"
+    assert len(settings.xpath("//cqp[@toktype='t']")) == 1
+    assert len(settings.xpath("//cqp/distribute[@typefld='word']")) == 1
     assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='id']/@display)") == "ID do Texto"
     assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='year']/@type)") == "select"
+    public_tag_labels = {
+        item.get("key"): item.get("display")
+        for item in settings.xpath("//xmlfile/pattributes/tags/item")
+    }
+    assert public_tag_labels == {
+        "word": "Forma",
+        "form": "Forma",
+        "lemma": "Lema",
+        "upos": "Classe gramatical",
+        "feats": "Traços morfológicos",
+        "head": "Núcleo",
+        "deprel": "Relação",
+    }
 
     pages = sorted((root / "Pages").glob("*.html"))
     assert {p.name for p in pages} == {"home.html", "metodo-pt.html", "cqptext.html", "querybuilderhelp.html"}
@@ -94,6 +109,39 @@ def main() -> None:
     tek_css = (root / "Resources" / "tek.css").read_text(encoding="utf-8")
     for responsive_rule in ("min-width: 0", "max-width: 100%", "table-layout: fixed", "@media (max-width: 1200px)", "@media (max-width: 600px)"):
         assert responsive_rule in tek_css, f"missing responsive search rule: {responsive_rule}"
+    for component_rule in (
+        ".kwictable",
+        "#tokinfo",
+        "> h2:first-child + h1 + table",
+        "> h1:first-child + table",
+        ".restable",
+        'button[id^="tbt-"]',
+    ):
+        assert component_rule in tek_css, f"missing responsive component rule: {component_rule}"
+    assert "overflow: hidden" not in tek_css
+
+    i18n = {}
+    for line in (root / "Resources" / "i18n_pt.txt").read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            source, translation = line.split("\t", 1)
+            i18n[source] = translation
+    expected_i18n = {
+        "Context": "Contexto",
+        "Form (Case and diacritic insensitive)": "Forma (sem distinção de maiúsculas/minúsculas e diacríticos)",
+        "CQL Query Visualization": "Visualização da consulta CQL",
+        "Global Data": "Dados gerais",
+        "Token count": "Total de formas ortográficas",
+        "Type count": "Total de formas distintas",
+        "Lemma count": "Total de lemas",
+        "Document count": "Total de documentos",
+        "Sentence count": "Total de sentenças",
+    }
+    assert expected_i18n.items() <= i18n.items()
+
+    template = (root / "templates" / "main.tpl").read_text(encoding="utf-8")
+    assert "/tek/Resources/tek.css?v=2" in template
+    assert "fonts.googleapis.com" not in template
+    assert "fonts.gstatic.com" not in template
 
     xml_files = sorted((root / "xmlfiles").glob("TEK_*.xml"))
     assert len(xml_files) == 128
@@ -150,6 +198,13 @@ def main() -> None:
     assert queries['upos="VERB"'] == 5565
     assert queries["year=2024"] == 4720
     assert queries["year=2024"] == queries["theme=2024"]
+    lexdecode = shutil.which("cwb-lexdecode")
+    if lexdecode:
+        lexicon = subprocess.run(
+            [lexdecode, "-r", str(registry), "-P", "word", "TEK"],
+            text=True, capture_output=True, check=True,
+        ).stdout.splitlines()
+        assert len(lexicon) == 7532
     print("configuration=valid")
     print("pages=4 valid HTML fragments; no absolute production links")
     print("corpus=" + ", ".join(f"{key}={value}" for key, value in counts.items()))
@@ -159,6 +214,8 @@ def main() -> None:
         print("xidx=not validated locally (tt-cwb-encode unavailable)")
     for query, result in queries.items():
         print(f"query {query}: {result}")
+    if lexdecode:
+        print("word-types=7532")
 
 
 if __name__ == "__main__":

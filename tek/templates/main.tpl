@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" type="text/css" href="/Scripts/teitok.css" media="screen">
 <link rel="stylesheet" href="/shared/Resources/doeste.css?v=6">
-<link rel="stylesheet" href="/tek/Resources/tek.css?v=1">
+<link rel="stylesheet" href="/tek/Resources/tek.css?v=2">
 </head>
 
 <body>
