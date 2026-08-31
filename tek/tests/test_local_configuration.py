@@ -49,6 +49,7 @@ def main() -> None:
     assert settings.xpath("string(//cqp/@toktype)") == "t"
     assert len(settings.xpath("//cqp[@toktype='t']")) == 1
     assert len(settings.xpath("//cqp/distribute[@typefld='word']")) == 1
+    assert settings.xpath("//xmlfile/sattributes/item/@key") == ["s"]
     assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='id']/@display)") == "ID do Texto"
     assert settings.xpath("string(//cqp/sattributes/item[@level='text']/item[@key='year']/@type)") == "select"
     public_tag_labels = {
