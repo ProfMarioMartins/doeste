@@ -180,7 +180,55 @@ def parse_conllu_tokens(conllu_text):
     return tokens
 
 
+def dependency_head_map(tokens_xml, tokens_ud):
+    """Mapeia IDs locais CoNLL-U para os IDs XML reais da sentença.
+
+    A arquitetura atual do TED usa apenas ``tok`` como nó analítico. A
+    presença de ``dtok`` deve ser tratada por uma implementação específica,
+    e não por uma suposição posicional silenciosa.
+    """
+    if any(tok.xpath("./*[local-name()='dtok']") for tok in tokens_xml):
+        raise ValueError("Sentença TED com dtok: mapeamento não suportado.")
+
+    if len(tokens_xml) != len(tokens_ud):
+        raise ValueError("Quantidades XML e CoNLL-U incompatíveis.")
+
+    xml_ids = [tok.get("id") for tok in tokens_xml]
+    if any(not xml_id for xml_id in xml_ids):
+        raise ValueError("Token TED sem @id XML.")
+    if len(xml_ids) != len(set(xml_ids)):
+        raise ValueError("IDs XML duplicados na sentença TED.")
+
+    local_ids = [tok["id"] for tok in tokens_ud]
+    if any(not local_id.isdigit() for local_id in local_ids):
+        raise ValueError("ID CoNLL-U não inteiro na saída do UDPipe.")
+    if len(local_ids) != len(set(local_ids)):
+        raise ValueError("IDs locais CoNLL-U duplicados.")
+
+    local_to_xml = dict(zip(local_ids, xml_ids))
+    for tok_ud in tokens_ud:
+        head = tok_ud["head"]
+        if head != "0" and head not in local_to_xml:
+            raise ValueError(
+                f"Head CoNLL-U sem alvo na sentença: {head!r}."
+            )
+    return local_to_xml
+
+
+def validate_document_node_ids(root):
+    nodes = root.xpath(".//*[local-name()='tok' or local-name()='dtok']")
+    node_ids = [node.get("id") for node in nodes]
+    if any(not node_id for node_id in node_ids):
+        raise ValueError("Documento TED contém nó analítico sem @id XML.")
+    if len(node_ids) != len(set(node_ids)):
+        raise ValueError("Documento TED contém IDs XML duplicados.")
+
+
 def annotate_sentence(sentence):
+    if sentence.xpath(".//*[local-name()='dtok']"):
+        raise ValueError(
+            "Sentença TED com dtok: mapeamento analítico requer suporte explícito."
+        )
     tokens_xml = sentence.xpath("./*[local-name()='tok']")
 
     if not tokens_xml:
@@ -205,6 +253,8 @@ def annotate_sentence(sentence):
             "skipped_sentences": 1
         }
 
+    local_to_xml = dependency_head_map(tokens_xml, tokens_ud)
+
     for tok_xml, tok_ud in zip(tokens_xml, tokens_ud):
         original = token_original_form(tok_xml)
 
@@ -225,7 +275,8 @@ def annotate_sentence(sentence):
         if tok_ud["feats"] and tok_ud["feats"] != "_":
             tok_xml.set("feats", tok_ud["feats"])
 
-        tok_xml.set("head", tok_ud["head"])
+        head = tok_ud["head"]
+        tok_xml.set("head", "0" if head == "0" else local_to_xml[head])
         tok_xml.set("deprel", tok_ud["deprel"])
 
     return {
@@ -270,6 +321,7 @@ def process_file(input_path, output_path):
     parser = etree.XMLParser(remove_blank_text=False)
     tree = etree.parse(str(input_path), parser)
     root = tree.getroot()
+    validate_document_node_ids(root)
 
     sentences = root.xpath(".//*[local-name()='s']")
 
