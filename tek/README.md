@@ -10,16 +10,56 @@ Esta árvore contém a implementação local do TEK no DOESTE.
 - `scripts/build_cqp.py`: gerador reproduzível do vertical e dos índices CQP.
 - `tests/`: testes de integridade textual e estrutural.
 
-Arquitetura aprovada:
+Arquitetura de anotação:
 
 ```text
-TEI-fonte canônico → pipeline de anotação → TEI anotado de publicação → TEITOK/CQP
+TEI-fonte canônico
+  → UDPipe: tokenização lossless (`ranges`)
+  → DOESTE-PT: segmentação sentencial determinística
+  → CoNLL-U tokenizado e presegmentado
+  → UDPipe: lematização, tagging e parsing
+  → TEI anotado de publicação
+  → TEITOK/CQP
 ```
+
+A segmentação de sentenças não é aceita diretamente do sentence splitter do
+modelo UDPipe. O tokenizer é executado primeiro sobre cada parágrafo inteiro,
+preservando `TokenRange`, espaços e multiword tokens. O segmentador versionado
+`doeste-pt-v1` determina então as fronteiras com base na pontuação e no
+contexto de abreviações, números, URLs, aspas, títulos, citações e travessões.
+Antes da segmentação, uma etapa ortográfica conservadora separa pontuação
+terminal que o tokenizer tenha fundido entre duas unidades lexicais. A regra
+opera exclusivamente sobre a superfície e os `TokenRange`, distingue ponto
+de interrogação/exclamação do ponto final e exclui, entre outros, decimais,
+URLs, endereços eletrônicos, abreviações e iniciais. Ela não contém exceções
+por documento.
+As unidades já tokenizadas e presegmentadas são finalmente reenviadas ao
+mesmo modelo como CoNLL-U para tagging e parsing. Cada sentença recebe, assim,
+uma nova árvore sintática completa, em vez de resultar da fusão posterior de
+árvores independentes.
 
 Os arquivos de `xmlfiles/` são completamente regeneráveis a partir de
 `xmlfiles_source/`, do pipeline e do modelo UDPipe
 `portuguese-bosque-ud-2.17-251125`, versão fixada no pipeline e registrada em
 cada XML. Os índices CQP também são derivados.
+
+O número de sentenças é uma propriedade derivada dessa segmentação e não um
+invariante fixo do corpus. A forma superficial, a ordem dos tokens e a
+quantidade de posições ortográficas, ao contrário, são verificadas pelos
+testes de integridade e devem permanecer idênticas ao TEI-fonte.
+
+## Estado validado da camada anotada
+
+A camada anterior à correção sentencial possuía 1.891 sentenças, 60.620
+`tok`, 11.640 `dtok` e 60.620 posições CQP. Essa contagem constitui a baseline
+histórica, não a configuração vigente da pipeline.
+
+Após a introdução do segmentador `doeste-pt-v1` e a correção lossless da única
+unidade `democracia.Em`, a camada derivada validada possui 128 documentos, 515
+parágrafos, 1.871 sentenças, 60.622 `tok`, 11.640 `dtok` e 66.442 unidades
+analíticas. A forma superficial dos 515 parágrafos permanece idêntica aos
+TEI-fonte. Quando reconstruído, o corpus CQP correspondente possui uma posição
+por `tok`, portanto 60.622 posições ortográficas.
 
 O download em massa e a implantação pública não fazem parte desta fase.
 

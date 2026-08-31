@@ -151,3 +151,248 @@ body #cqlcode {
     padding-bottom: 3px;
   }
 }
+
+/* Resultados KWIC: preservar os três contextos em viewports estreitas. */
+@media (max-width: 900px) {
+  body .content .kwictable {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body .content .kwictable > tbody {
+    display: table;
+    width: 100%;
+    min-width: 42rem;
+  }
+
+  body .content .kwictable td {
+    white-space: nowrap;
+  }
+}
+
+/* Painel de metadados acionado nas linhas KWIC. */
+body .content #tokinfo {
+  box-sizing: border-box;
+  max-width: min(32rem, calc(100vw - 2rem));
+  color: var(--doeste-text);
+  background: var(--doeste-surface);
+  border: 1px solid var(--doeste-border-strong);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+  z-index: 1000;
+}
+
+body .content #tokinfo table {
+  width: 100%;
+  margin: 0;
+  table-layout: fixed;
+  font-size: 0.875rem;
+}
+
+body .content #tokinfo th {
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border-color: var(--doeste-border);
+}
+
+body .content #tokinfo > table:nth-of-type(2) th {
+  width: 36%;
+}
+
+body .content #tokinfo td {
+  min-width: 0;
+  background: var(--doeste-surface);
+  border-color: var(--doeste-border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  body .content #tokinfo {
+    position: fixed !important;
+    top: var(--space-4) !important;
+    right: var(--space-4) !important;
+    left: var(--space-4) !important;
+    width: auto !important;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  body .content #tokinfo > table:nth-of-type(2),
+  body .content #tokinfo > table:nth-of-type(2) > tbody,
+  body .content #tokinfo > table:nth-of-type(2) tr,
+  body .content #tokinfo > table:nth-of-type(2) th,
+  body .content #tokinfo > table:nth-of-type(2) td {
+    display: block;
+    width: 100%;
+  }
+
+  body .content #tokinfo > table:nth-of-type(2) tr {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--doeste-border);
+  }
+
+  body .content #tokinfo > table:nth-of-type(2) th,
+  body .content #tokinfo > table:nth-of-type(2) td {
+    border: 0;
+  }
+}
+
+/* Metadados da representação textual: tabela que sucede o título do texto. */
+body .content > h2:first-child + h1 + table {
+  table-layout: fixed;
+  border-top: 1px solid var(--doeste-border);
+}
+
+body .content > h2:first-child + h1 + table th {
+  width: 15rem;
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border-color: var(--doeste-border);
+}
+
+body .content > h2:first-child + h1 + table td {
+  min-width: 0;
+  background: var(--doeste-surface);
+  border-color: var(--doeste-border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  body .content > h2:first-child + h1 + table,
+  body .content > h2:first-child + h1 + table > tbody,
+  body .content > h2:first-child + h1 + table tr,
+  body .content > h2:first-child + h1 + table th,
+  body .content > h2:first-child + h1 + table td {
+    display: block;
+    width: 100%;
+  }
+
+  body .content > h2:first-child + h1 + table tr {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--doeste-border);
+  }
+
+  body .content > h2:first-child + h1 + table th,
+  body .content > h2:first-child + h1 + table td {
+    border: 0;
+  }
+}
+
+/* Estatística por documento: rolagem pertence à tabela, não à página. */
+body .content > h1:first-child + table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+body .content > h1:first-child + table > tbody {
+  display: table;
+  width: 100%;
+  min-width: 62rem;
+}
+
+body .content > h1:first-child + table th {
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border-color: var(--doeste-border);
+  white-space: nowrap;
+}
+
+body .content > h1:first-child + table td {
+  background: var(--doeste-surface);
+  border-color: var(--doeste-border);
+  font-variant-numeric: tabular-nums;
+}
+
+body .content > h1:first-child + table tr:nth-child(even) td {
+  background: var(--doeste-bg);
+}
+
+body .content > h1:first-child + table a:hover,
+body .content .restable a:hover {
+  color: var(--tek-primary-dark) !important;
+}
+
+/* Dados gerais da distribuição: tabela científica compacta e neutra. */
+body .content .restable {
+  width: auto;
+  max-width: 100%;
+  border-top: 1px solid var(--doeste-border);
+}
+
+body .content .restable th {
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border-color: var(--doeste-border);
+}
+
+body .content .restable td {
+  background: var(--doeste-surface);
+  border-color: var(--doeste-border);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Opções de representação em KWIC e na visualização textual. */
+body .content button[id^="tbt-"] {
+  min-height: 2rem;
+  margin: var(--space-1) var(--space-1) var(--space-1) 0;
+  padding: var(--space-1) var(--space-2);
+  font: 600 0.8125rem/1.3 var(--font-interface);
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border: 1px solid var(--doeste-border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+body .content button[id^="tbt-"]:hover {
+  color: var(--tek-primary-dark);
+  background: var(--doeste-surface);
+  border-color: var(--tek-primary);
+}
+
+body #jsoptions {
+  max-width: 100%;
+  line-height: 1.8;
+}
+
+/* Refinamento compacto da identidade lateral apenas no TEK mobile. */
+@media (max-width: 600px) {
+  body .layout .sidebar {
+    padding-block: var(--space-4);
+  }
+
+  body .layout .sidebar .institution-logo {
+    max-width: 8.75rem;
+    margin-bottom: var(--space-2);
+  }
+
+  body .layout .sidebar .brand-title {
+    margin-bottom: var(--space-1);
+    font-size: 1.5rem;
+  }
+
+  body .layout .sidebar .brand-subtitle {
+    margin-bottom: var(--space-3);
+  }
+
+  body .layout .sidebar .brand-divider {
+    margin-bottom: var(--space-3);
+  }
+
+  body .layout .sidebar .nav a {
+    padding: var(--space-2) 0;
+  }
+}

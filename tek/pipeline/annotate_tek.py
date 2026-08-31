@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Lossless UDPipe annotation for canonical TEK source XML.
+"""Lossless, sentence-controlled UDPipe annotation for canonical TEK XML.
 
 Orthographic tokens remain as ``tok`` text. CoNLL-U multiword-token analyses
 are represented as TEITOK ``dtok`` children, preserving contractions such as
-``da`` while retaining the UD analyses of ``de`` and ``a``.
+``da`` while retaining the UD analyses of ``de`` and ``a``. Sentence
+segmentation is performed deterministically by DOESTE-PT between UDPipe's
+tokenization and its final tagging/dependency-parsing stages.
 """
 
 from __future__ import annotations
@@ -11,6 +13,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -54,6 +57,42 @@ class Multiword:
 class Sentence:
     words: list[Word]
     multiwords: list[Multiword]
+
+
+@dataclass
+class ConlluRow:
+    """One mutable ten-column CoNLL-U row from tokenization-only output."""
+
+    columns: list[str]
+
+
+@dataclass
+class OrthographicToken:
+    """A surface token and its one or more underlying UD word rows."""
+
+    form: str
+    start: int
+    end: int
+    token_row: ConlluRow | None
+    word_rows: list[ConlluRow]
+
+
+SENTENCE_SEGMENTER = "doeste-pt-v1"
+TERMINAL_CHARS = frozenset(".!?…")
+CLOSING_MARKS = frozenset({'"', "'", "”", "’", "»", ")", "]", "}"})
+CONTINUATION_MARKS = frozenset({",", ";", ":"})
+DASHES = frozenset({"-", "–", "—"})
+
+# General Portuguese abbreviations whose final period does not by itself end
+# a sentence. This linguistic list is independent of corpus/document IDs.
+ABBREVIATIONS = frozenset(
+    {
+        "art", "arts", "av", "cap", "caps", "cf", "cia", "dr", "dra",
+        "ed", "eds", "etc", "ex", "fig", "figs", "inc", "jr", "ltda",
+        "n", "no", "núm", "p", "pág", "págs", "prof", "profa", "s",
+        "sr", "sra", "srta", "tel", "v", "vol", "vols",
+    }
+)
 
 
 def misc_values(value: str) -> dict[str, str]:
@@ -105,8 +144,10 @@ def parse_conllu(conllu: str) -> list[Sentence]:
     return sentences
 
 
-def call_udpipe(text: str) -> tuple[str, str]:
-    data = urlencode({"model": MODEL, "tokenizer": "ranges", "tagger": "", "parser": "", "data": text}).encode()
+def call_udpipe(data_fields: dict[str, str]) -> tuple[str, str]:
+    """Call the fixed UDPipe model with explicitly selected pipeline stages."""
+
+    data = urlencode({"model": MODEL, **data_fields}).encode()
     request = Request(UDPIPE_API, data=data, method="POST")
     last_error: Exception | None = None
     for attempt in range(4):
@@ -122,6 +163,275 @@ def call_udpipe(text: str) -> tuple[str, str]:
     else:  # pragma: no cover - defensive; the loop either breaks or raises.
         raise RuntimeError("UDPipe request failed") from last_error
     return payload["result"], payload["model"]
+
+
+def tokenize_paragraph(text: str) -> tuple[str, str]:
+    """Tokenize a whole paragraph losslessly, without tagging or parsing."""
+
+    return call_udpipe({"tokenizer": "ranges", "data": text})
+
+
+def analyse_presegmented(conllu: str) -> tuple[str, str]:
+    """Tag and parse sentence blocks whose tokens are already fixed."""
+
+    return call_udpipe({"input": "conllu", "tagger": "", "parser": "", "data": conllu})
+
+
+def parse_tokenized_conllu(conllu: str) -> list[OrthographicToken]:
+    """Flatten UDPipe sentence guesses into one ordered orthographic stream."""
+
+    rows: list[ConlluRow] = []
+    for line in conllu.splitlines():
+        if not line or line.startswith("#"):
+            continue
+        columns = line.split("\t")
+        if len(columns) != 10:
+            raise ValueError(f"Invalid tokenization-only CoNLL-U line: {line}")
+        if "." not in columns[0]:
+            rows.append(ConlluRow(columns))
+
+    tokens: list[OrthographicToken] = []
+    index = 0
+    while index < len(rows):
+        row = rows[index]
+        identifier = row.columns[0]
+        if "-" in identifier:
+            first, last = (int(value) for value in identifier.split("-", 1))
+            component_count = last - first + 1
+            components = rows[index + 1:index + 1 + component_count]
+            if len(components) != component_count or any("-" in item.columns[0] for item in components):
+                raise ValueError(f"Malformed multiword token at CoNLL-U id {identifier}")
+            start, end = token_range(row.columns[9])
+            tokens.append(OrthographicToken(row.columns[1], start, end, row, components))
+            index += component_count + 1
+        else:
+            start, end = token_range(row.columns[9])
+            tokens.append(OrthographicToken(row.columns[1], start, end, None, [row]))
+            index += 1
+    if not tokens:
+        raise ValueError("UDPipe tokenization produced no orthographic tokens")
+    return tokens
+
+
+def replace_token_range(misc: str, start: int, end: int, force_no_space: bool = False) -> str:
+    """Replace TokenRange while retaining other lossless MISC information."""
+
+    values = [item for item in misc.split("|") if item and item != "_" and not item.startswith("TokenRange=")]
+    if force_no_space and "SpaceAfter=No" not in values:
+        values.append("SpaceAfter=No")
+    values.append(f"TokenRange={start}:{end}")
+    return "|".join(values)
+
+
+def embedded_terminal_offsets(form: str) -> list[int]:
+    """Find high-confidence missing token boundaries inside one surface form.
+
+    Full stops require a plausible new sentence beginning (upper-case letter,
+    optionally after an opening quote). Question and exclamation marks are
+    intrinsically terminal candidates when followed by another lexical unit.
+    URLs, e-mail addresses, decimals, abbreviations and initials are excluded.
+    Returned offsets identify punctuation characters that become standalone
+    orthographic tokens.
+    """
+
+    if "://" in form or "@" in form or form.casefold().startswith("www."):
+        return []
+    offsets: list[int] = []
+    for index, char in enumerate(form):
+        if char not in ".!?" or index == 0 or index + 1 >= len(form):
+            continue
+        left = form[:index]
+        right = form[index + 1:]
+        left_char = left[-1]
+        right_lexical = right.lstrip('"\'“‘«([{')
+        if not left_char.isalnum() or not right_lexical or not right_lexical[0].isalnum():
+            continue
+        if char == ".":
+            if left_char.isdigit() and right_lexical[0].isdigit():
+                continue
+            left_word = re.split(r"[^\wÀ-ÖØ-öø-ÿ]+", left)[-1].casefold()
+            if left_word in ABBREVIATIONS or (len(left_word) == 1 and left_word.isalpha()):
+                continue
+            if not right_lexical[0].isupper():
+                continue
+        offsets.append(index)
+    return offsets
+
+
+def repair_embedded_terminal_tokens(text: str, tokens: list[OrthographicToken]) -> list[OrthographicToken]:
+    """Split terminal punctuation fused between lexical units losslessly."""
+
+    repaired: list[OrthographicToken] = []
+    for token in tokens:
+        offsets = embedded_terminal_offsets(token.form)
+        if not offsets or token.token_row is not None:
+            repaired.append(token)
+            continue
+
+        split_points: list[tuple[int, int]] = []
+        start = 0
+        for offset in offsets:
+            if offset > start:
+                split_points.append((start, offset))
+            split_points.append((offset, offset + 1))
+            start = offset + 1
+        if start < len(token.form):
+            split_points.append((start, len(token.form)))
+
+        original = token.word_rows[0].columns
+        for part_index, (local_start, local_end) in enumerate(split_points):
+            absolute_start = token.start + local_start
+            absolute_end = token.start + local_end
+            form = text[absolute_start:absolute_end]
+            if form != token.form[local_start:local_end]:
+                raise ValueError("Embedded-token repair diverged from source surface")
+            columns = original.copy()
+            columns[0] = "0"  # Renumbered when presegmented CoNLL-U is built.
+            columns[1] = form
+            columns[2:9] = ["_"] * 7
+            columns[9] = replace_token_range(
+                original[9], absolute_start, absolute_end,
+                force_no_space=part_index < len(split_points) - 1,
+            )
+            row = ConlluRow(columns)
+            repaired.append(OrthographicToken(form, absolute_start, absolute_end, None, [row]))
+    return repaired
+
+
+def is_terminal(token: OrthographicToken) -> bool:
+    return bool(token.form) and any(char in TERMINAL_CHARS for char in token.form) and all(
+        char in TERMINAL_CHARS for char in token.form
+    )
+
+
+def is_abbreviation_period(text: str, tokens: list[OrthographicToken], index: int) -> bool:
+    """Disambiguate periods internal to abbreviations, numbers and URLs."""
+
+    token = tokens[index]
+    if token.form != "." or index == 0:
+        return False
+    previous = tokens[index - 1]
+    following = tokens[index + 1] if index + 1 < len(tokens) else None
+    attached_left = previous.end == token.start
+    attached_right = following is not None and token.end == following.start
+    if not attached_left:
+        return False
+
+    previous_form = previous.form.casefold()
+    if previous_form in ABBREVIATIONS:
+        return True
+    if previous.form.isalpha() and len(previous.form) == 1 and previous.form.isupper():
+        return True
+    if following and previous.form.isdigit() and following.form.isdigit() and attached_right:
+        return True
+
+    # Covers dotted domains/e-mail fragments without treating a final URL
+    # punctuation mark as internal to the address.
+    left = text[max(0, previous.start - 64):token.start]
+    right = text[token.end:min(len(text), token.end + 64)]
+    if attached_right and re.search(r"(?:https?://|www\.|\S+@)\S*$", left, re.IGNORECASE):
+        return bool(re.match(r"[\w%-]", right))
+    return False
+
+
+def segment_tokens(text: str, tokens: list[OrthographicToken]) -> list[list[OrthographicToken]]:
+    """Apply deterministic DOESTE-PT sentence-boundary disambiguation.
+
+    UDPipe's raw sentence blocks are deliberately ignored. Boundaries are
+    inferred from terminal punctuation plus Portuguese abbreviation, quote,
+    title, numeric, URL and dash context. Paragraph end is always a boundary.
+    """
+
+    boundaries: list[int] = []
+    index = 0
+    while index < len(tokens):
+        if not is_terminal(tokens[index]) or is_abbreviation_period(text, tokens, index):
+            index += 1
+            continue
+
+        boundary = index
+        while boundary + 1 < len(tokens) and tokens[boundary + 1].form in CLOSING_MARKS:
+            boundary += 1
+        following = boundary + 1
+
+        # Punctuation inside a title/quotation followed by comma, semicolon or
+        # colon is not the end of the containing sentence.
+        if following < len(tokens) and tokens[following].form in CONTINUATION_MARKS:
+            index = boundary + 1
+            continue
+
+        # A closing quote followed directly by a lower-case continuation is
+        # normally a quoted title or embedded citation, not a sentence break.
+        if boundary > index and following < len(tokens) and tokens[following].form[:1].islower():
+            index = boundary + 1
+            continue
+
+        # Quoted speech followed by a reporting clause introduced by a dash
+        # remains one sentence (e.g. “...?” — afirmou o autor).
+        if boundary > index and following < len(tokens) and tokens[following].form in DASHES:
+            after_dash = following + 1
+            if after_dash < len(tokens) and tokens[after_dash].form[:1].islower():
+                index = following + 1
+                continue
+
+        boundaries.append(boundary + 1)
+        index = boundary + 1
+
+    if not boundaries or boundaries[-1] != len(tokens):
+        boundaries.append(len(tokens))
+
+    sentences: list[list[OrthographicToken]] = []
+    start = 0
+    for end in boundaries:
+        if end > start:
+            sentences.append(tokens[start:end])
+        start = end
+    if start != len(tokens):
+        raise ValueError("Sentence segmentation did not cover every token")
+    return sentences
+
+
+def presegmented_conllu(sentences: list[list[OrthographicToken]]) -> str:
+    """Serialize fixed tokens/sentences for UDPipe tagging and parsing."""
+
+    blocks: list[str] = []
+    for sentence_number, sentence in enumerate(sentences, 1):
+        lines = [f"# sent_id = {sentence_number}"]
+        next_word_id = 1
+        for token in sentence:
+            if token.token_row is not None:
+                first = next_word_id
+                last = first + len(token.word_rows) - 1
+                columns = token.token_row.columns.copy()
+                columns[0] = f"{first}-{last}"
+                columns[2:9] = ["_"] * 7
+                lines.append("\t".join(columns))
+                for component in token.word_rows:
+                    columns = component.columns.copy()
+                    columns[0] = str(next_word_id)
+                    columns[2:9] = ["_"] * 7
+                    lines.append("\t".join(columns))
+                    next_word_id += 1
+            else:
+                columns = token.word_rows[0].columns.copy()
+                columns[0] = str(next_word_id)
+                columns[2:9] = ["_"] * 7
+                lines.append("\t".join(columns))
+                next_word_id += 1
+        blocks.append("\n".join(lines))
+    return "\n\n".join(blocks) + "\n"
+
+
+def annotate_text(text: str) -> tuple[str, set[str]]:
+    """Run tokenization, DOESTE-PT segmentation, then UD analysis."""
+
+    tokenized, tokenizer_model = tokenize_paragraph(text)
+    tokens = parse_tokenized_conllu(tokenized)
+    tokens = repair_embedded_terminal_tokens(text, tokens)
+    sentences = segment_tokens(text, tokens)
+    conllu = presegmented_conllu(sentences)
+    analysed, analysis_model = analyse_presegmented(conllu)
+    return analysed, {tokenizer_model, analysis_model}
 
 
 def set_analysis(element: etree._Element, word: Word) -> None:
@@ -222,8 +532,8 @@ def annotate_tree(tree: etree._ElementTree) -> etree._ElementTree:
     resolved_models: set[str] = set()
     for old in paragraphs:
         text = surface_text(old)
-        conllu, resolved_model = call_udpipe(text)
-        resolved_models.add(resolved_model)
+        conllu, paragraph_models = annotate_text(text)
+        resolved_models.update(paragraph_models)
         new, sentence_number, token_number = annotate_paragraph(text, conllu, old.get(f"{{{XML}}}id"), sentence_number, token_number)
         old.getparent().replace(old, new)
     if len(resolved_models) != 1:
@@ -233,8 +543,9 @@ def annotate_tree(tree: etree._ElementTree) -> etree._ElementTree:
     change = etree.SubElement(revision, f"{{{TEI}}}change", who="DOESTE_UDPIPE_PIPELINE")
     change.set("when", datetime.now(timezone.utc).isoformat())
     change.text = (
-        f"Automatic lossless tokenization and UD annotation "
-        f"(requested_model={MODEL}; resolved_model={resolved_model}; tokenizer=ranges); "
+        f"Automatic lossless tokenization, DOESTE-controlled sentence segmentation, and UD annotation "
+        f"(requested_model={MODEL}; resolved_model={resolved_model}; tokenizer=ranges; "
+        f"sentence_segmenter={SENTENCE_SEGMENTER}; analysis_input=conllu); "
         "contractions represented with TEITOK dtok."
     )
     return result
