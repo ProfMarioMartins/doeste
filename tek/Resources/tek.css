@@ -371,7 +371,7 @@ body #jsoptions {
 /* Refinamento compacto da identidade lateral apenas no TEK mobile. */
 @media (max-width: 600px) {
   body .layout .sidebar {
-    padding: var(--space-4);
+    padding-block: var(--space-4);
   }
 
   body .layout .sidebar .institution-logo {
