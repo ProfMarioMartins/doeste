@@ -1,0 +1,6 @@
+# Proteção dos dados integrais do Corpus TEJ.
+# Os arquivos permanecem disponíveis localmente para TEITOK, PHP e CWB,
+# mas não podem ser servidos diretamente por HTTP.
+
+RewriteEngine On
+RewriteRule ^(?:xmlfiles|cqp)(?:/|$) - [F,L]
