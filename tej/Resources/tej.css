@@ -1,0 +1,74 @@
+/* Ajustes específicos do Corpus TEJ. */
+
+/* Painel de metadados acionado nas linhas KWIC. */
+body .content #tokinfo {
+  box-sizing: border-box;
+  max-width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  color: var(--doeste-text);
+  background: var(--doeste-surface);
+  border: 1px solid var(--doeste-border-strong);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+  z-index: 1000;
+}
+
+body .content #tokinfo table {
+  width: 100%;
+  margin: 0;
+  table-layout: fixed;
+  font-size: 0.875rem;
+}
+
+body .content #tokinfo th {
+  color: var(--doeste-text);
+  background: var(--doeste-surface-subtle);
+  border-color: var(--doeste-border);
+}
+
+body .content #tokinfo > table:nth-of-type(2) th {
+  width: 36%;
+}
+
+body .content #tokinfo td {
+  min-width: 0;
+  background: var(--doeste-surface);
+  border-color: var(--doeste-border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  body .content #tokinfo {
+    position: fixed !important;
+    top: var(--space-4) !important;
+    right: var(--space-4) !important;
+    left: var(--space-4) !important;
+    width: auto !important;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  body .content #tokinfo > table:nth-of-type(2),
+  body .content #tokinfo > table:nth-of-type(2) > tbody,
+  body .content #tokinfo > table:nth-of-type(2) tr,
+  body .content #tokinfo > table:nth-of-type(2) th,
+  body .content #tokinfo > table:nth-of-type(2) td {
+    display: block;
+    width: 100%;
+  }
+
+  body .content #tokinfo > table:nth-of-type(2) tr {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--doeste-border);
+  }
+
+  body .content #tokinfo > table:nth-of-type(2) th,
+  body .content #tokinfo > table:nth-of-type(2) td {
+    border: 0;
+  }
+}
