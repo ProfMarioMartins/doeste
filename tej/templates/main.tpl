@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/Scripts/teitok.css" media="screen">
 <link rel="stylesheet" href="/shared/Resources/doeste.css?v=6">
 <link rel="stylesheet" href="/tej/Resources/tej.css?v=2">
+<script src="/tej/Resources/tej.js?v=4" defer></script>
 
 </head>
 
